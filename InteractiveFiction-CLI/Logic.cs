@@ -326,6 +326,12 @@ namespace InteractiveFiction_CLI
                     }
                 }
             }//End location handler
+
+            //Moved scene handler here from scene.cs
+            public static void SetScene()
+            {
+                Scene.Scene1 myScene1 = new();
+            }
         }
 
     }

@@ -25,7 +25,7 @@ namespace InteractiveFiction_CLI
 
         static void Main(string[] args)
         {
-            Scene.Scene1.SetScene();
+            Logic.SetScene();
             CommandProcessor.Command myCommand = new();
             do
             {
