@@ -1,4 +1,4 @@
-#C# Interactive Fiction Engine
+C# Interactive Fiction Engine 
 
 It currently consists of a working Command-line interpreter, Object, Location and Scene datasets. 
 I will update this description as I finish work on fleshing out the other parts of the engine.
