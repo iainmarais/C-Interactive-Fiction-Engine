@@ -21,6 +21,13 @@ namespace InteractiveFiction_CLI
 {
     public class Actor
     {
+        public EActorClass ActorClass { get; set; }
+        public EActorType ActorType { get; set; }
+        public bool IsKnockedOut { get; set; }
+        public bool IsDead { get; set; }
+        public int HitPoints { get; set; }
+        public static bool CurrentActor { get; set; }
+        public static bool TargetActor { get; set; }
         public string Name { get; set; }
         List<Object> ActorInventory = new();
         public Actor()

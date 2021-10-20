@@ -38,6 +38,7 @@ namespace InteractiveFiction_CLI
             public static Location CurrentLoc { get; set; }
             public static Location TargetLoc { get; set; }
             public static bool IsConnected { get; set; }
+            public bool LocIsConnected { get; set; }
 
             public Location GetIsCurrentLocation(Location Loc1)
             {
@@ -84,7 +85,6 @@ namespace InteractiveFiction_CLI
                 }
                 return IsConnected;
             }
-
             public Location()
             {
 
@@ -118,7 +118,43 @@ namespace InteractiveFiction_CLI
                 LocationInventory = locInventory;
                 IsCurrentLocation = isCurrentLoc;
             }
+            public static void GetDirection(Location currentLoc)
+            {
+                CurrentLoc = currentLoc;
 
+                if (CurrentLoc == null)
+
+                {
+                    Console.WriteLine("This does not seem to work");
+                }
+                else if (CurrentLoc != null)
+                {
+                    if (CurrentLoc.HasExitN == true)
+                    {
+                        Console.WriteLine($"There is an exit North.");
+                    }
+                    if (CurrentLoc.HasExitS == true)
+                    {
+                        Console.WriteLine($"There is an exit South.");
+                    }
+                    if (CurrentLoc.HasExitE == true)
+                    {
+                        Console.WriteLine($"There is an exit East.");
+                    }
+                    if (CurrentLoc.HasExitW == true)
+                    {
+                        Console.WriteLine($"There is an exit West.");
+                    }
+                    if (CurrentLoc.HasExitUp == true)
+                    {
+                        Console.WriteLine($"There is a stairway leading up");
+                    }
+                    if (CurrentLoc.HasExitDown == true)
+                    {
+                        Console.WriteLine($"There is a stairway leading down");
+                    }
+                }
+            }
         }
     }
 }

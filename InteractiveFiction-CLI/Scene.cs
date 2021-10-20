@@ -34,6 +34,7 @@ namespace InteractiveFiction_CLI
             public static Scene NewScene { get; set; }
             List<Location> Locations { get; set; }
             public string Name { get; set; }
+            public string SceneDescription { get; set; }
             public Scene()
             {
                 Locations = new List<Location>();
@@ -43,9 +44,18 @@ namespace InteractiveFiction_CLI
                 Name = sceneName;
                 Locations = locations;
             }
+            public Scene(string sceneName, string sceneDescription, List<Location> locations)
+            {
+                Name = sceneName;
+                SceneDescription = sceneDescription;
+                Locations = locations;
+            }
             public class Scene1 : Scene
             {
                 public new string Name = "My home";
+                public new string SceneDescription = "My Old Quarter home\n\n" +
+                                                     "A small house in the older part of the city, where the City Watch is not frequently seen.\n" +
+                                                     "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.";
                 new public static List<Location> Locations = new();
 
                 //New stuff

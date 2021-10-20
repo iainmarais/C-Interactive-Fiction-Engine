@@ -244,6 +244,7 @@ namespace InteractiveFiction_CLI
                     else
                     {
                         Console.WriteLine($"I am in {currentLoc.Name}");
+                        Location.GetDirection(currentLoc);
                     }
                 }
                 else if (Location.CurrentLoc != null)
@@ -331,6 +332,7 @@ namespace InteractiveFiction_CLI
             public static void SetScene()
             {
                 Scene.Scene1 myScene1 = new();
+                Console.WriteLine(myScene1.SceneDescription);
             }
         }
 
