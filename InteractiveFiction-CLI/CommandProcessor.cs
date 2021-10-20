@@ -134,7 +134,7 @@ namespace InteractiveFiction_CLI
                         {
                             if (myWord == "where")
                             {
-                                Location.GetCurrentLocation();
+                                Logic.GetCurrentLocation();
                             }
                             else if (myWord == "look")
                             {

@@ -99,45 +99,8 @@ namespace InteractiveFiction_CLI
                     SceneLocations = sceneLocations;
                 }
             }
-
-
-
-
-
-            //Set the scene with locs and objects.
-            public static void SetScene()
-            {
-                Scene1 myScene1 = new();
-            }
-
-            /*
-        {
-            Location MyBedroom = new("bedroom", "My bedroom", LocID.LocBedroom);
-            MyBedroom.LocationInventory = new()
-            {
-                { new Object.Container("cupboard", "My bedroom cupboard", new List<Object> { new Object("clothes"), new Object("guitar"), new Object("box of PC parts"), new Object("stack of CDs") }) },
-                { new Object.Container("fridge", "My bar fridge", new List<Object> { new Object.Consumable.Potion("beer", 6), new Object.Consumable.Potion("wine", 4), new Object.Consumable("steak", 2), new Object.Consumable("bottled soda water", 6) }) },
-                { new Object("computer workstation") },
-                { new Object("bed") },
-            };
-
-            Location MyLounge = new("lounge", "My lounge", LocID.LocLounge);
-
-            Location MyLivingroom = new("livingroom", "My living room", LocID.LocLivingroom);
-
-            MyBedroom.HasExitN = true;
-            MyBedroom.IsCurrentLocation = true;
-            MyLounge.HasExitS = true;
-            MyLounge.HasExitE = true;
-            MyLivingroom.HasExitW = true;
-            Scene1.Locations.Add(MyBedroom);
-            Scene1.Locations.Add(MyLounge);
-            Scene1.Locations.Add(MyLivingroom);
-            Location currentLoc = MyBedroom;
-
-
-        } */
         }
+        //For testing - will be left here until it works, then move to logic.cs
         public void CreateScene()
         {
             //Do something
