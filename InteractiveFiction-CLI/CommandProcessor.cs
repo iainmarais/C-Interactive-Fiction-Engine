@@ -140,15 +140,15 @@ namespace InteractiveFiction_CLI
                             {
                                 if (Word2 == null)
                                 {
-                                    Location.GetLocationInventory();
+                                    Logic.GetLocationInventory();
                                 }
                                 if (Word2 == "fridge")
                                 {
-                                    Object.Container.GetContainerInventory();
+                                    Logic.GetContainerInventory();
                                 }
                                 if (Word2 == "cupboard")
                                 {
-                                    Object.Container.GetContainerInventory();
+                                    Logic.GetContainerInventory();
                                 }
                             }
                             else if (myWord != (WordList.Actions.Where(x => x.Contains(Word1)).FirstOrDefault()))
@@ -163,7 +163,7 @@ namespace InteractiveFiction_CLI
                                 }
                                 else if (Word2 != null)
                                 {
-                                    Location.GoToNewLocation();
+                                    Logic.GoToNewLocation();
                                 }
                             }
 
