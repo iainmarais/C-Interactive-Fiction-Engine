@@ -1,6 +1,6 @@
 ﻿/*
  Interactive Fiction Command line interpreter
- Dictionaries.cs
+ Lists.cs
 
 © 2021 Iain Marais (il-Salvatore on Github)
 Licence: Apache v2.0 or 3-clause BSD Licence
@@ -38,8 +38,10 @@ namespace InteractiveFiction_CLI
     public class WordList
     {   //List of action words for first stage of Command processor
         public static List<string> Actions = new() { "where", "look", "get", "put", "open", "unlock", "steal", "attack", "use", "jump", "climb", "move", "take", "lock", "pickpocket", "lockpick", "go" };
-        public static List<string> ObjectNames = new() { "beer", "blackjack", "sword", "bow", "arrow", "hammer", "mace", "potion", "knife", "flashbomb", "landmine", "dagger", "coin", "coins", "purse", "wand", "torch", "door", };
+        public static List<string> StaticObjectNames = new() { "door", "chair", "torch", "desk", };
         public static List<string> ContainerNames = new() { "chest", "drawer", "table", "fridge", "cupboard", "drawer" };
+        public static List<string> ConsumableNames = new() { "beer", "wine", "water", "steak", "fruit", "potion", };
+        public static List<string> ObjectNames = new() { "blackjack", "sword", "bow", "arrow", "hammer", "mace", "knife", "flashbomb", "landmine", "dagger", "coin", "coins", "purse", "wand", "lockpicks", "lamp" };
     }
 
 }
