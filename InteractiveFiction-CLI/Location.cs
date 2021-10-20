@@ -55,33 +55,40 @@ namespace InteractiveFiction_CLI
             }
             public static bool GetIsConnected(Location Loc1, Location Loc2)
             {
-                if (Loc1.HasExitN && Loc2.HasExitS)
+                try
                 {
-                    IsConnected = true;
+                    if (Loc1.HasExitN && Loc2.HasExitS)
+                    {
+                        IsConnected = true;
+                    }
+                    else if (Loc1.HasExitS && Loc2.HasExitN)
+                    {
+                        IsConnected = true;
+                    }
+                    else if (Loc1.HasExitE && Loc2.HasExitW)
+                    {
+                        IsConnected = true;
+                    }
+                    else if (Loc1.HasExitW && Loc2.HasExitE)
+                    {
+                        IsConnected = true;
+                    }
+                    else if (Loc1.HasExitUp && Loc2.HasExitDown)
+                    {
+                        IsConnected = true;
+                    }
+                    else if (Loc1.HasExitDown && Loc2.HasExitUp)
+                    {
+                        IsConnected = true;
+                    }
+                    else
+                    {
+                        IsConnected = false;
+                    }
                 }
-                else if (Loc1.HasExitS && Loc2.HasExitN)
+                catch (NullReferenceException)
                 {
-                    IsConnected = true;
-                }
-                else if (Loc1.HasExitE && Loc2.HasExitW)
-                {
-                    IsConnected = true;
-                }
-                else if (Loc1.HasExitW && Loc2.HasExitE)
-                {
-                    IsConnected = true;
-                }
-                else if (Loc1.HasExitUp && Loc2.HasExitDown)
-                {
-                    IsConnected = true;
-                }
-                else if (Loc1.HasExitDown && Loc2.HasExitUp)
-                {
-                    IsConnected = true;
-                }
-                else
-                {
-                    IsConnected = false;
+                    Console.WriteLine("Could not recognise that, please try again");
                 }
                 return IsConnected;
             }
@@ -118,43 +125,7 @@ namespace InteractiveFiction_CLI
                 LocationInventory = locInventory;
                 IsCurrentLocation = isCurrentLoc;
             }
-            public static void GetDirection(Location currentLoc)
-            {
-                CurrentLoc = currentLoc;
 
-                if (CurrentLoc == null)
-
-                {
-                    Console.WriteLine("This does not seem to work");
-                }
-                else if (CurrentLoc != null)
-                {
-                    if (CurrentLoc.HasExitN == true)
-                    {
-                        Console.WriteLine($"There is an exit North.");
-                    }
-                    if (CurrentLoc.HasExitS == true)
-                    {
-                        Console.WriteLine($"There is an exit South.");
-                    }
-                    if (CurrentLoc.HasExitE == true)
-                    {
-                        Console.WriteLine($"There is an exit East.");
-                    }
-                    if (CurrentLoc.HasExitW == true)
-                    {
-                        Console.WriteLine($"There is an exit West.");
-                    }
-                    if (CurrentLoc.HasExitUp == true)
-                    {
-                        Console.WriteLine($"There is a stairway leading up");
-                    }
-                    if (CurrentLoc.HasExitDown == true)
-                    {
-                        Console.WriteLine($"There is a stairway leading down");
-                    }
-                }
-            }
         }
     }
 }

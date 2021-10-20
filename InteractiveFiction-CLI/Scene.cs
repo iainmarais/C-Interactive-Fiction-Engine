@@ -62,7 +62,7 @@ namespace InteractiveFiction_CLI
 
                 public static List<Location> SceneLocations = new()
                 {
-                    new Location("bedroom", "My bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
+                    new Location("bedroom", "master bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
                     {
                         new Object("bed", "My bed"),
                         new Object("computerdesk", "My computer workstation"),
@@ -80,20 +80,20 @@ namespace InteractiveFiction_CLI
                             new Object("stack of CDs")
                         }),
                     }, true),
-                    new Location("lounge", "My lounge", LocID.LocLounge, false, true, false, true, false, false, new List<Object>
+                    new Location("lounge", "lounge", LocID.LocLounge, false, true, false, true, false, false, new List<Object>
                     {
                         new Object("table", "Lounge table"),
                         new Object("chair", "Lounge chair"),
                         new Object("chair", "Lounge chair"),
                         new Object("chair", "Lounge chair"),
                     }, false),
-                    new Location("attic", "Attic", LocID.LocAttic, false, false, false, false, false, true, new List<Object>
+                    new Location("attic", "attic", LocID.LocAttic, false, false, false, false, false, true, new List<Object>
                     {
                         new Object.Container("chest", "Wooden chest", new List<Object>
                         { new Object("blacjack", "Blackjack")
                         })
                     }, false),
-                    new Location("livingroom", "My living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
+                    new Location("livingroom", "living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
                     {
                     }, false),
 

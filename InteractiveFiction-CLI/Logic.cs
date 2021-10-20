@@ -243,8 +243,8 @@ namespace InteractiveFiction_CLI
                     }
                     else
                     {
-                        Console.WriteLine($"I am in {currentLoc.Name}");
-                        Location.GetDirection(currentLoc);
+                        Console.WriteLine($"I am in {currentLoc.LongName}");
+                        GetDirection();
                     }
                 }
                 else if (Location.CurrentLoc != null)
@@ -257,7 +257,84 @@ namespace InteractiveFiction_CLI
                     }
                     else
                     {
-                        Console.WriteLine($"I am in {currentLoc.Name}");
+                        Console.WriteLine($"I am in {currentLoc.LongName}");
+                        GetDirection();
+                    }
+                }
+            }
+            public static void GetDirection()
+            {
+                if (Location.CurrentLoc == null)
+                {
+                    Location currentLoc = Scene.Scene1.SceneLocations.Where(x => x.IsCurrentLocation == true).FirstOrDefault();
+                    Location targetLoc = new();
+                    Location TargetLocation = new();
+                    foreach (var Loc in Scene.Scene1.SceneLocations)
+                    {
+                        TargetLocation = Scene.Scene1.SceneLocations.Where(x => x.Name == Loc.Name).FirstOrDefault();
+                        targetLoc = TargetLocation;
+                        if (currentLoc.HasExitN == true && targetLoc.HasExitS == true)
+                        {
+                            Console.WriteLine($"There is an exit North, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitS == true && targetLoc.HasExitN == true)
+                        {
+                            Console.WriteLine($"There is an exit South, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitE == true && targetLoc.HasExitW == true)
+                        {
+                            Console.WriteLine($"There is an exit East, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitW == true && targetLoc.HasExitE == true)
+                        {
+                            Console.WriteLine($"There is an exit West, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitUp == true && targetLoc.HasExitDown == true)
+                        {
+                            Console.WriteLine($"There is a stairway leading up to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitDown == true && targetLoc.HasExitUp == true)
+                        {
+                            Console.WriteLine($"There is a stairway leading down to the {targetLoc.LongName}");
+                        }
+
+                    }
+                }
+
+                else if (Location.CurrentLoc != null)
+                {
+                    Location currentLoc = Location.CurrentLoc;
+                    Location targetLoc = new();
+                    Location TargetLocation = new();
+                    foreach (var Loc in Scene.Scene1.SceneLocations)
+                    {
+                        TargetLocation = Scene.Scene1.SceneLocations.Where(x => x.Name == Loc.Name).FirstOrDefault();
+                        targetLoc = TargetLocation;
+                        if (currentLoc.HasExitN == true && targetLoc.HasExitS == true)
+                        {
+                            Console.WriteLine($"There is an exit North, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitS == true && targetLoc.HasExitN == true)
+                        {
+                            Console.WriteLine($"There is an exit South, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitE == true && targetLoc.HasExitW == true)
+                        {
+                            Console.WriteLine($"There is an exit East, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitW == true && targetLoc.HasExitE == true)
+                        {
+                            Console.WriteLine($"There is an exit West, leading to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitUp == true && targetLoc.HasExitDown == true)
+                        {
+                            Console.WriteLine($"There is a stairway leading up to the {targetLoc.LongName}");
+                        }
+                        if (currentLoc.HasExitDown == true && targetLoc.HasExitUp == true)
+                        {
+                            Console.WriteLine($"There is a stairway leading down to the {targetLoc.LongName}");
+                        }
+
                     }
                 }
             }
