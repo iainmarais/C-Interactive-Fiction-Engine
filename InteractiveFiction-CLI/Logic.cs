@@ -47,49 +47,46 @@ namespace InteractiveFiction_CLI
                 return currentLoc;
             }
 
-            public static void GetContainerInventory()
+            public static Object.Container GetCurrentContainer()
             {
                 Location currentLoc = GetCurrentLoc();
-                if (Object.Container.CurrentContainer == null)
+                Object.Container currentContainer = new();
+                if (Object.Container.CurrentContainer != null)
                 {
-                    try
-                    {
-                        Object.Container currentContainer = (Object.Container)currentLoc.LocationInventory.Where(x => x.Name == CommandProcessor.Command.Word2).FirstOrDefault();
-                        if (currentContainer == null)
-                        {
-                            Console.WriteLine("There is no container of that type here");
-                        }
-                        else
-                        {
-                            {
-                                foreach (var item in currentContainer.ConsumablesInventory)
-                                {
-                                    if (item.StackCount == 0)
-                                    {
-                                        Console.WriteLine($"{currentContainer.LongName} contains {item.Name}");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine($"{currentContainer.LongName} contains {item.StackCount} of item: {item.Name}");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (ArgumentNullException)//test catch here and return safely. Crashing != option here -
-                                                 //Simply tell the player/reader there is no sodding container of that type here.
-                    {
-                        Console.WriteLine("There is no container of that type here");
-                    }
+                    currentContainer = (Object.Container)Object.Container.CurrentContainer;
                 }
-                else if (Object.Container.CurrentContainer != null)
+                else if (Object.Container.CurrentContainer == null)
                 {
-                    Object.Container currentContainer = Object.Container.CurrentContainer;
+                    currentContainer = (Object.Container)currentLoc.LocationInventory.Where(x => x.Name == CommandProcessor.Command.Word2).FirstOrDefault();
+                }
+                return currentContainer;
+            }
+            public static void GetContainerInventory()
+            {
+                try
+                {
+                    Object.Container currentContainer = GetCurrentContainer();
                     if (currentContainer == null)
                     {
                         Console.WriteLine("There is no container of that type here");
                     }
-                    else
+                    else if (currentContainer.ConsumablesInventory != null)
+                    {
+                        {
+                            foreach (var item in currentContainer.ConsumablesInventory)
+                            {
+                                if (item.StackCount == 0)
+                                {
+                                    Console.WriteLine($"{currentContainer.LongName} contains {item.Name}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{currentContainer.LongName} contains {item.StackCount} of item: {item.Name}");
+                                }
+                            }
+                        }
+                    }
+                    else if (currentContainer.ContainerInventory != null)
                     {
                         {
                             foreach (var item in currentContainer.ContainerInventory)
@@ -106,6 +103,12 @@ namespace InteractiveFiction_CLI
                         }
                     }
                 }
+                catch (ArgumentNullException)//test catch here and return safely. Crashing != option here -
+                                             //Simply tell the player/reader there is no sodding container of that type here.
+                {
+                    Console.WriteLine("There is no container of that type here");
+                }
+
 
             }
             //Moved here from Location.cs
