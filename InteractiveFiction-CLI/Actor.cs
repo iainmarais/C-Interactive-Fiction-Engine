@@ -21,6 +21,7 @@ namespace InteractiveFiction_CLI
 {
     public class Actor
     {
+        public EActorGender ActorGender { get; set; }
         public EActorClass ActorClass { get; set; }
         public EActorType ActorType { get; set; }
         public bool IsKnockedOut { get; set; }
@@ -30,15 +31,81 @@ namespace InteractiveFiction_CLI
         public static bool TargetActor { get; set; }
         public string Name { get; set; }
         List<Object> ActorInventory = new();
+
         public Actor()
         {
 
         }
+        public class Guard : Actor
+        {
+            public Guard()
+            {
+
+            }
+            public Guard(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
+            {
+                ActorClass = EActorClass.Guard;
+                Name = actorName;
+                IsKnockedOut = isKnockedOut;
+                IsDead = isDead;
+                ActorInventory = actorInventory;
+            }
+        }
+        public class UnarmedCitizen : Actor
+        {
+            public UnarmedCitizen()
+            {
+
+            }
+            public UnarmedCitizen(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
+            {
+                ActorClass = EActorClass.Citizen;
+                Name = actorName;
+                IsKnockedOut = isKnockedOut;
+                IsDead = isDead;
+                ActorInventory = actorInventory;
+            }
+        }
+        public class IronBeast : Actor
+        {
+            public IronBeast()
+            {
+
+            }
+            public IronBeast(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
+            {
+                ActorClass = EActorClass.IronBeast;
+                Name = actorName;
+                IsKnockedOut = isKnockedOut;
+                IsDead = isDead;
+                ActorInventory = actorInventory;
+            }
+        }
+        public class Beast : Actor
+        {
+            public Beast()
+            {
+
+            }
+            public Beast(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
+            {
+                ActorClass = EActorClass.Beast;
+                IsKnockedOut = isKnockedOut;
+                IsDead = isDead;
+                ActorInventory = actorInventory;
+            }
+        }
         public class Player : Actor
         {
-            public List<Object> PlayerInventory = new();
-            public Player()
+            public static List<Object> PlayerInventory = new();
+            public Player(string actorName, List<Object> playerInventory, int hp, bool isDead, bool isKnockedOut)
             {
+                ActorClass = EActorClass.Thief;
+                Name = actorName;
+                PlayerInventory = playerInventory;
+                HitPoints = hp;
+                IsDead = isDead;
+                IsKnockedOut = isKnockedOut;
 
             }
         }

@@ -34,6 +34,7 @@ namespace InteractiveFiction_CLI
             public bool HasExitDown { get; set; }
             public string Name { get; set; }
             public string LongName { get; set; }
+            public List<Actor> LocationActors { get; set; }
             public List<Object> LocationInventory { get; set; }
             public static Location CurrentLoc { get; set; }
             public static Location TargetLoc { get; set; }
@@ -124,6 +125,21 @@ namespace InteractiveFiction_CLI
                 HasExitDown = exitDown;
                 LocationInventory = locInventory;
                 IsCurrentLocation = isCurrentLoc;
+            }
+            public Location(string locName, string longName, LocID locId, bool exitN, bool exitS, bool exitE, bool exitW, bool exitUp, bool exitDown, List<Object> locInventory, bool isCurrentLoc, List<Actor> locActors)
+            {
+                Name = locName;
+                LongName = longName;
+                LocationID = locId;
+                HasExitN = exitN;
+                HasExitS = exitS;
+                HasExitE = exitE;
+                HasExitW = exitW;
+                HasExitUp = exitUp;
+                HasExitDown = exitDown;
+                LocationInventory = locInventory;
+                IsCurrentLocation = isCurrentLoc;
+                LocationActors = locActors;
             }
 
         }

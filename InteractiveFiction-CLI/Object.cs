@@ -32,6 +32,8 @@ namespace InteractiveFiction_CLI
             public string Name { get; set; }
             public class Container : Object
             {
+                public bool IsLocked { get; set; }
+                public bool IsOpen { get; set; }
                 public static Container CurrentContainer { get; set; }
                 public static Container TargetContainer { get; set; }
                 public List<Object> ContainerInventory { get; set; }
@@ -55,11 +57,27 @@ namespace InteractiveFiction_CLI
                     LongName = longName;
                     ContainerInventory = containerInventory;
                 }
+                public Container(string containerName, string longName, List<Object> containerInventory, bool isOpen, bool isLocked)
+                {
+                    Name = containerName;
+                    LongName = longName;
+                    ContainerInventory = containerInventory;
+                    IsOpen = isOpen;
+                    IsLocked = isLocked;
+                }
                 public Container(string containerName, string longName, List<Object.Consumable> consumablesInventory)
                 {
                     Name = containerName;
                     LongName = longName;
                     ConsumablesInventory = consumablesInventory;
+                }
+                public Container(string containerName, string longName, List<Object.Consumable> consumablesInventory, bool isOpen, bool isLocked)
+                {
+                    Name = containerName;
+                    LongName = longName;
+                    ConsumablesInventory = consumablesInventory;
+                    IsOpen = isOpen;
+                    IsLocked = isLocked;
                 }
 
                 //This function handles querying the container inventory in each Loc. 

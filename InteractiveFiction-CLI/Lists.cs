@@ -30,8 +30,9 @@ namespace InteractiveFiction_CLI
     {
         Guard, Thief, ArcherGuard, Noble, Servant, Citizen, Officer, OfficerCaptain, OfficerArcher, HammeriteGuard,
         HammeriteArcher, HammeritePriest, HammeriteNovice, PaganCommoner, PaganGuard, PaganArcher, PaganMage, Keeper,
-        KeeperElder, KeeperNovice, KeeperGuard, KeeperArcher, Zombie, Ghost, HammerHaunt, TreeBeast
+        KeeperElder, KeeperNovice, KeeperGuard, KeeperArcher, Zombie, Ghost, HammerHaunt, TreeBeast, IronBeast, Beast
     }
+    public enum EActorGender { Male, Female }
     public enum EActorType { Creature, Human, IronBeast, Zombie, Ghost, WoodenBeast }
     public enum LocID { LocBedroom, LocLounge, LocLivingroom, LocEntrancehall, LocDiningarea, LocAttic, LocBasement, LocBedroom2 }
 
