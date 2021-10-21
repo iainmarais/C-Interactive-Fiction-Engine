@@ -136,19 +136,103 @@ namespace InteractiveFiction_CLI
                             {
                                 Logic.GetCurrentLocation();
                             }
+                            else if (myWord == "get")
+                            {
+                                string myWord2 = Word2;
+                                try
+                                {
+                                    if (myWord2 == WordList.ObjectNames.Where(x => x.Contains(Word2)).FirstOrDefault())
+                                    {
+                                        myWord2 = WordList.ObjectNames.Where(x => x.Contains(Word2)).FirstOrDefault();
+                                        Object.ObjectName = myWord2;
+                                        string myWord3 = WordList.HelperWords.Where(x => x.Contains(Word3)).FirstOrDefault();
+
+                                        if (myWord3 == "from")
+                                        {
+                                            string myWord4 = WordList.ContainerNames.Where(x => x.Contains(Word4)).FirstOrDefault();
+                                            if (myWord4 == null)
+                                            {
+                                                Console.WriteLine($"Get {myWord2} {myWord3} where?");
+                                            }
+                                            else if (myWord4 == WordList.ContainerNames.Where(x => x.Contains(Word4)).FirstOrDefault())
+                                            {
+                                                Object.ContainerName = myWord4;
+                                                Logic.GetObject();
+                                            }
+                                        }
+                                    }
+
+                                    if (myWord2 == WordList.ConsumableNames.Where(x => x.Contains(Word2)).FirstOrDefault())
+                                    {
+                                        Object.ConsumableName = myWord2;
+                                        string myWord3 = WordList.HelperWords.Where(x => x.Contains(Word3)).FirstOrDefault();
+                                        if (myWord3 == null)
+                                        {
+                                            Console.WriteLine($"Get {myWord2} from where?");
+                                        }
+                                        else if (myWord3 == "from")
+                                        {
+                                            string myWord4 = WordList.ContainerNames.Where(x => x.Contains(Word4)).FirstOrDefault();
+                                            if (myWord4 == null)
+                                            {
+                                                Console.WriteLine($"Get {myWord2} {myWord3} where?");
+                                            }
+                                            else if (myWord4 == WordList.ContainerNames.Where(x => x.Contains(Word4)).FirstOrDefault())
+                                            {
+                                                Object.ContainerName = myWord4;
+                                                Logic.GetObject();
+                                            }
+                                        }
+                                    }
+                                }
+                                catch (ArgumentNullException)
+                                {
+                                    Console.WriteLine("Get what from where?");
+                                }
+                            }
                             else if (myWord == "look")
                             {
-                                if (Word2 == null)
+                                try
                                 {
-                                    Logic.GetLocationInventory();
+                                    string myWord2 = WordList.HelperWords.Where(x => x.Contains(Word2)).FirstOrDefault();
+                                    if (myWord2 == "around")
+                                    {
+                                        Logic.GetLocationInventory();
+                                    }
+                                    else if (myWord2 == "in")
+                                    {
+                                        string myWord3 = WordList.ContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault();
+                                        if (myWord3 == null)
+                                        {
+                                            Console.WriteLine("Look in where?");
+                                        }
+                                        else if (myWord3 == WordList.ContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault())
+                                        {
+                                            Object.ContainerName = myWord3;
+                                            Logic.GetContainerInventory();
+                                        }
+                                        else if (myWord3 == WordList.ContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault())
+                                        {
+                                            Logic.GetContainerInventory();
+                                        }
+                                    }
+                                    else if (myWord2 == "on")
+                                    {
+                                        string myWord3 = WordList.ContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault();
+                                        if (myWord3 == null)
+                                        {
+                                            Console.WriteLine("Look on where?");
+                                        }
+                                        else if (myWord != null) //temporary handler for non-null container of the surface type
+                                        {
+                                            Object.ContainerName = myWord3;
+                                            Console.WriteLine("I would like to do that but I just don't know how yet");
+                                        }
+                                    }
                                 }
-                                if (Word2 == "fridge")
+                                catch (ArgumentNullException)
                                 {
-                                    Logic.GetContainerInventory();
-                                }
-                                if (Word2 == "cupboard")
-                                {
-                                    Logic.GetContainerInventory();
+                                    Console.WriteLine("Bad command or unknown word.");
                                 }
                             }
                             else if (myWord != (WordList.Actions.Where(x => x.Contains(Word1)).FirstOrDefault()))

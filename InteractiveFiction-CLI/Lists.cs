@@ -42,7 +42,8 @@ namespace InteractiveFiction_CLI
         public static List<string> StaticObjectNames = new() { "door", "chair", "torch", "desk", };
         public static List<string> ContainerNames = new() { "chest", "drawer", "table", "fridge", "cupboard", "drawer" };
         public static List<string> ConsumableNames = new() { "beer", "wine", "water", "steak", "fruit", "potion", };
-        public static List<string> ObjectNames = new() { "blackjack", "sword", "bow", "arrow", "hammer", "mace", "knife", "flashbomb", "landmine", "dagger", "coin", "coins", "purse", "wand", "lockpicks", "lamp" };
+        public static List<string> ObjectNames = new() { "blackjack", "sword", "bow", "arrow", "hammer", "mace", "knife", "flashbomb", "landmine", "dagger", "coin", "coins", "purse", "wand", "lockpicks", "lamp", "guitar", "clothes", "cds", "parts" };
+        public static List<string> HelperWords = new() { "in", "on", "from", "to", "out", "around" };
     }
 
 }

@@ -68,10 +68,10 @@ namespace InteractiveFiction_CLI
                         new Object("computerdesk", "My computer workstation"),
                         new Object.Container("fridge", "My bar fridge", new List<Object.Consumable>
                         {
-                            new Object.Consumable.Potion("beer", 6),
-                            new Object.Consumable.Potion("wine", 4),
-                            new Object.Consumable("steak", 2),
-                            new Object.Consumable("bottled soda water", 6),
+                            new Object.Consumable.Potion("beer", 6,true),
+                            new Object.Consumable.Potion("wine", 4,true),
+                            new Object.Consumable("steak", 2,true),
+                            new Object.Consumable("bottled soda water", 6,true),
                         }),
                         new Object.Container("cupboard", "My cupboard", new List<Object>
                         { new Object("clothes"),

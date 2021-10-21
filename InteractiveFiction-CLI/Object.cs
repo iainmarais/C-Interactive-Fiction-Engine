@@ -27,9 +27,15 @@ namespace InteractiveFiction_CLI
         //Top level class for Objects.
         public class Object
         {
+            public bool HasStackCount { get; set; }
             public int StackCount { get; set; }
             public string LongName { get; set; }
             public string Name { get; set; }
+            public static string ObjectName { get; set; }
+            public static string ConsumableName { get; set; }
+            public static string ContainerName { get; set; }
+            public static Object CurrentObject { get; set; }
+            public static Object TargetObject { get; set; }
             public class Container : Object
             {
                 public bool IsLocked { get; set; }
@@ -122,6 +128,12 @@ namespace InteractiveFiction_CLI
                         Name = potionName;
                         StackCount = stackCount;
                     }
+                    public Potion(string potionName, int stackCount, bool hasStackCount)
+                    {
+                        Name = potionName;
+                        StackCount = stackCount;
+                        HasStackCount = hasStackCount;
+                    }
                 }
                 public Consumable()
                 {
@@ -135,6 +147,12 @@ namespace InteractiveFiction_CLI
                 {
                     Name = consumableName;
                     StackCount = stackCount;
+                }
+                public Consumable(string potionName, int stackCount, bool hasStackCount)
+                {
+                    Name = potionName;
+                    StackCount = stackCount;
+                    HasStackCount = hasStackCount;
                 }
             }
 

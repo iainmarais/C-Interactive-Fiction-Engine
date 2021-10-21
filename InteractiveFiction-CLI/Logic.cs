@@ -23,11 +23,6 @@ namespace InteractiveFiction_CLI
     {
         class Logic
         {
-            //To do: Move logic out of scene,obj and loc files here as partial classes.
-            public void GetObject()
-            {
-                //do something
-            }
             //moved here from Object.cs
 
             //Replaced location check in each function with a new simple func that checks, reducing over all code complexity and improving readability
@@ -46,7 +41,54 @@ namespace InteractiveFiction_CLI
                 }
                 return currentLoc;
             }
+            public static void GetObject()
+            {
+                Object.Container currentContainer = GetCurrentContainer();
+                try
+                {
+                    if (Object.CurrentObject == null)
 
+                    {
+                        if (Object.CurrentObject == null && currentContainer.ContainerInventory == null)
+                        {
+                            currentContainer = GetCurrentContainer();
+                            Object currentObject = currentContainer.ConsumablesInventory.Where(x => x.Name == Object.ConsumableName).FirstOrDefault();
+                            if (currentObject.HasStackCount)
+                            {
+                                Console.WriteLine($"You get a {currentObject.Name} from the {currentContainer.Name}");
+                                Actor.Player.PlayerInventory.Add(currentObject);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"You get some {currentObject.Name} from the {currentContainer.Name}");
+                                Actor.Player.PlayerInventory.Add(currentObject);
+                            }
+                        }
+                        if (Object.CurrentObject == null && currentContainer.ConsumablesInventory == null)
+                        {
+                            currentContainer = GetCurrentContainer();
+                            Object currentObject = currentContainer.ContainerInventory.Where(x => x.Name == Object.ObjectName).FirstOrDefault();
+                            if (currentObject.HasStackCount)
+                            {
+                                Console.WriteLine($"You get a {currentObject.Name} from the {currentContainer.Name}");
+                                Actor.Player.PlayerInventory.Add(currentObject);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"You get the {currentObject.Name} from the {currentContainer.Name}");
+                                Actor.Player.PlayerInventory.Add(currentObject);
+                            }
+                        }
+                    }
+                }
+                catch (NullReferenceException)
+                {
+                    Console.WriteLine("No object of that type exists yet");
+                }
+
+
+
+            }
             public static Object.Container GetCurrentContainer()
             {
                 Location currentLoc = GetCurrentLoc();
@@ -57,7 +99,7 @@ namespace InteractiveFiction_CLI
                 }
                 else if (Object.Container.CurrentContainer == null)
                 {
-                    currentContainer = (Object.Container)currentLoc.LocationInventory.Where(x => x.Name == CommandProcessor.Command.Word2).FirstOrDefault();
+                    currentContainer = (Object.Container)currentLoc.LocationInventory.Where(x => x.Name == Object.ContainerName).FirstOrDefault();
                 }
                 return currentContainer;
             }
