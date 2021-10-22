@@ -31,6 +31,7 @@ namespace InteractiveFiction_CLI
             public int StackCount { get; set; }
             public string LongName { get; set; }
             public string Name { get; set; }
+            public Guid ID { get; set; }
             public static string ObjectName { get; set; }
             public static string ConsumableName { get; set; }
             public static string ContainerName { get; set; }
@@ -89,9 +90,6 @@ namespace InteractiveFiction_CLI
                 //This function handles querying the container inventory in each Loc. 
                 //It gets the Loc from the instantiated objects of said type,
                 //and stores them in a static CurrentLoc and uses that to handle the active instance.
-
-
-
             }
             public Object()
             {
@@ -153,6 +151,87 @@ namespace InteractiveFiction_CLI
                     Name = potionName;
                     StackCount = stackCount;
                     HasStackCount = hasStackCount;
+                }
+            }
+            //Copied over from InvSys file.
+            public class InventorySystem
+            {
+                private const int InvMaxSlots = 15;
+                public List<InventoryEntry> InventoryEntries = new();
+                public void AddItem(PickuppableObject item, int AddToStack)
+                {
+                    while (AddToStack > 0)
+                    {
+                        if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount)))
+                        {
+                            InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount));
+                            int MaxAddable = (item.MaxStackCount - inventoryEntry.Amount);
+                            int AddStackCount = Math.Min(item.MaxStackCount, inventoryEntry.Amount);
+                            inventoryEntry.AddToAmount(AddStackCount);
+                            AddToStack -= AddStackCount;
+                        }
+                        else
+                        {
+                            if (InventoryEntries.Count < InvMaxSlots)
+                            {
+                                InventoryEntries.Add(new InventoryEntry(item, 0));
+                            }
+                            else
+                            {
+                                Console.WriteLine("There is no more inventory space");
+                            }
+                        }
+                    }
+                }
+                public InventorySystem()
+                {
+
+                }
+            }
+            public class InventoryEntry
+            {
+                public PickuppableObject InvObject { get; set; }
+                public int Amount { get; set; }
+                public InventoryEntry(PickuppableObject item, int amount)
+                {
+                    InvObject = item;
+                    Amount = amount;
+                }
+                public void AddToAmount(int amountToAdd)
+                {
+                    Amount += amountToAdd;
+                }
+            }
+            public class PickuppableObject : Object
+            {
+                public int MaxStackCount { get; set; }
+
+                public PickuppableObject()
+                {
+                    MaxStackCount = 1;
+                }
+
+                public class Weapon : PickuppableObject
+                {
+
+                }
+
+                public class ConsumableItem : PickuppableObject
+                {
+                    public class Potion : ConsumableItem
+                    {
+                        public Potion()
+                        {
+                            MaxStackCount = 10;
+                        }
+                    }
+                }
+                public class Ammo : PickuppableObject
+                {
+                    public Ammo()
+                    {
+                        MaxStackCount = 50;
+                    }
                 }
             }
 

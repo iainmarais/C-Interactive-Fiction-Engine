@@ -23,6 +23,7 @@ namespace InteractiveFiction_CLI
     {
         class Logic
         {
+
             //moved here from Object.cs
 
             //Replaced location check in each function with a new simple func that checks, reducing over all code complexity and improving readability
@@ -55,8 +56,11 @@ namespace InteractiveFiction_CLI
                             Object currentObject = currentContainer.ConsumablesInventory.Where(x => x.Name == Object.ConsumableName).FirstOrDefault();
                             if (currentObject.HasStackCount)
                             {
-                                Console.WriteLine($"You get a {currentObject.Name} from the {currentContainer.Name}");
-                                Actor.Player.PlayerInventory.Add(currentObject);
+                                if (currentObject.StackCount > 0)
+                                {
+                                    Console.WriteLine($"You get a {currentObject.Name} from the {currentContainer.Name}");
+                                    Actor.Player.PlayerInventory.Add(currentObject);
+                                }
                             }
                             else
                             {
@@ -70,8 +74,11 @@ namespace InteractiveFiction_CLI
                             Object currentObject = currentContainer.ContainerInventory.Where(x => x.Name == Object.ObjectName).FirstOrDefault();
                             if (currentObject.HasStackCount)
                             {
-                                Console.WriteLine($"You get a {currentObject.Name} from the {currentContainer.Name}");
-                                Actor.Player.PlayerInventory.Add(currentObject);
+                                if (currentObject.StackCount > 0)
+                                {
+                                    Console.WriteLine($"You get a {currentObject.Name} from the {currentContainer.Name}");
+                                    Actor.Player.PlayerInventory.Add(currentObject);
+                                }
                             }
                             else
                             {
@@ -85,9 +92,6 @@ namespace InteractiveFiction_CLI
                 {
                     Console.WriteLine("No object of that type exists yet");
                 }
-
-
-
             }
             public static Object.Container GetCurrentContainer()
             {
@@ -241,10 +245,12 @@ namespace InteractiveFiction_CLI
 
                 }
             }
-
+            /*
             public static void GoToNewLocation(Location targetLoc)
             {
+
             }
+            */
             public static void GoToNewLocation()
             {
 
