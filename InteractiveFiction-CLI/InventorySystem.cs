@@ -35,6 +35,31 @@ namespace InteractiveFiction_CLI
                 }
             }
         }
+        public void RemoveItem(PickuppableObject item, int RemoveFromStack)
+        {
+            while (RemoveFromStack < 0)
+            {
+                if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount > 0)))
+                {
+                    InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount > 0));
+                    int NumLeft = (0 + inventoryEntry.Amount);
+                    int SubtractStackCount = Math.Max(0, inventoryEntry.Amount);
+                    inventoryEntry.AddToAmount(SubtractStackCount);
+                    RemoveFromStack += SubtractStackCount;
+                }
+                else
+                {
+                    if (InventoryEntries.Count < InvMaxSlots)
+                    {
+                        InventoryEntries.Add(new InventoryEntry(item, 0));
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no more inventory space");
+                    }
+                }
+            }
+        }
         public InventorySystem()
         {
 
@@ -52,6 +77,11 @@ namespace InteractiveFiction_CLI
         public void AddToAmount(int amountToAdd)
         {
             Amount += amountToAdd;
+        }
+
+        public void SubtractFromAmount(int amountToRemove)
+        {
+            Amount -= amountToRemove;
         }
     }
     public class PickuppableObject

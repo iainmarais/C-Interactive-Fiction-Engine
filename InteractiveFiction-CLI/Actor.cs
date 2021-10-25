@@ -100,6 +100,7 @@ namespace InteractiveFiction_CLI
             public static List<Object> PlayerInventory = new();
             public Player(string actorName, List<Object> playerInventory, int hp, bool isDead, bool isKnockedOut)
             {
+                InventorySystem myInventory = new();
                 ActorClass = EActorClass.Thief;
                 Name = actorName;
                 PlayerInventory = playerInventory;

@@ -23,94 +23,109 @@ using System.Threading.Tasks;
 
 namespace InteractiveFiction_CLI
 {
-    partial class Program
+
+    //Top level class for scenes. Scenes can contain multiple locations. 
+    //Scene 1 is the starting scene for this world.
+    //Everything inside it is instantiated before the command processor is called.
+    public class Scene
     {
-        //Top level class for scenes. Scenes can contain multiple locations. 
-        //Scene 1 is the starting scene for this world.
-        //Everything inside it is instantiated before the command processor is called.
-        public class Scene
+        public static Scene CurrentScene { get; set; }
+        public static Scene NewScene { get; set; }
+        List<Location> Locations { get; set; }
+        public string Name { get; set; }
+        public string SceneDescription { get; set; }
+        public Scene()
         {
-            public static Scene CurrentScene { get; set; }
-            public static Scene NewScene { get; set; }
-            List<Location> Locations { get; set; }
-            public string Name { get; set; }
-            public string SceneDescription { get; set; }
-            public Scene()
-            {
-                Locations = new List<Location>();
-            }
-            public Scene(string sceneName, List<Location> locations)
-            {
-                Name = sceneName;
-                Locations = locations;
-            }
-            public Scene(string sceneName, string sceneDescription, List<Location> locations)
-            {
-                Name = sceneName;
-                SceneDescription = sceneDescription;
-                Locations = locations;
-            }
-            public class Scene1 : Scene
-            {
-                public new string Name = "My home";
-                public new string SceneDescription = "My Old Quarter home\n\n" +
-                                                     "A small house in the older part of the city, where the City Watch is not frequently seen.\n" +
-                                                     "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.";
-                new public static List<Location> Locations = new();
+            Locations = new List<Location>();
+        }
+        public Scene(string sceneName, List<Location> locations)
+        {
+            Name = sceneName;
+            Locations = locations;
+        }
+        public Scene(string sceneName, string sceneDescription, List<Location> locations)
+        {
+            Name = sceneName;
+            SceneDescription = sceneDescription;
+            Locations = locations;
+        }
+        public class Scene1 : Scene
+        {
+            public new string Name = "My home";
+            public new string SceneDescription = "My Old Quarter home\n\n" +
+                                                 "A small house in the older part of the city, where the City Watch is not frequently seen.\n" +
+                                                 "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.\n" +
+                                                 "\n";
+            new public static List<Location> Locations = new();
 
-                //New stuff
+            //New stuff
 
-                public static List<Location> SceneLocations = new()
-                {
-                    new Location("bedroom", "master bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
+            public static List<Location> SceneLocations = new()
+            {
+                new Location("bedroom", "master bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
                     {
                         new Object("bed", "My bed"),
                         new Object("computerdesk", "My computer workstation"),
-                        new Object.Container("fridge", "My bar fridge", new List<Object.Consumable>
+                        new Object.Container("fridge", "My bar fridge", new List<Object.PickuppableObject.Consumable>
                         {
-                            new Object.Consumable.Potion("beer", 6,true),
-                            new Object.Consumable.Potion("wine", 4,true),
-                            new Object.Consumable("steak", 2,true),
-                            new Object.Consumable("bottled soda water", 6,true),
+                            new Object.PickuppableObject.Consumable.Potion("beer",true),
+                            new Object.PickuppableObject.Consumable.Potion("beer",true),
+                            new Object.PickuppableObject.Consumable.Potion("beer",true),
+                            new Object.PickuppableObject.Consumable.Potion("beer",true),
+                            new Object.PickuppableObject.Consumable.Potion("beer",true),
+                            new Object.PickuppableObject.Consumable.Potion("beer",true),
+                            new Object.PickuppableObject.Consumable.Potion("wine",true),
+                            new Object.PickuppableObject.Consumable.Potion("wine",true),
+                            new Object.PickuppableObject.Consumable.Potion("wine",true),
+                            new Object.PickuppableObject.Consumable.Potion("wine",true),
+                            new Object.PickuppableObject.Consumable("steak",true),
+                            new Object.PickuppableObject.Consumable("steak",true),
+                            new Object.PickuppableObject.Consumable("steak",true),
+                            new Object.PickuppableObject.Consumable("steak",true),
+                            new Object.PickuppableObject.Consumable("bottled soda water",true),
+                            new Object.PickuppableObject.Consumable("bottled soda water",true),
+                            new Object.PickuppableObject.Consumable("bottled soda water",true),
+                            new Object.PickuppableObject.Consumable("bottled soda water",true),
+                            new Object.PickuppableObject.Consumable("bottled soda water",true),
+                            new Object.PickuppableObject.Consumable("bottled soda water",true),
                         }),
                         new Object.Container("cupboard", "My cupboard", new List<Object>
-                        { new Object("clothes"),
-                            new Object("guitar"),
-                            new Object("box of PC parts"),
-                            new Object("stack of CDs")
+                        {
+                            new Object.PickuppableObject("clothes"),
+                            new Object.PickuppableObject("guitar"),
+                            new Object.PickuppableObject("box of PC parts"),
+                            new Object.PickuppableObject("stack of CDs")
                         }),
                     }, true),
-                    new Location("lounge", "lounge", LocID.LocLounge, false, true, false, true, false, false, new List<Object>
+                new Location("lounge", "lounge", LocID.LocLounge, false, true, false, true, false, false, new List<Object>
                     {
                         new Object("table", "Lounge table"),
                         new Object("chair", "Lounge chair"),
                         new Object("chair", "Lounge chair"),
                         new Object("chair", "Lounge chair"),
                     }, false),
-                    new Location("attic", "attic", LocID.LocAttic, false, false, false, false, false, true, new List<Object>
+                new Location("attic", "attic", LocID.LocAttic, false, false, false, false, false, true, new List<Object>
                     {
                         new Object.Container("chest", "Wooden chest", new List<Object>
-                        { new Object("blacjack", "Blackjack")
+                        { new Object.PickuppableObject.Weapon("blacjack", "Blackjack")
                         })
                     }, false),
-                    new Location("livingroom", "living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
-                    {
-                    }, false),
-
-                };
-                //End new stuff
-                public Scene1()
+                new Location("livingroom", "living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
                 {
+                }, false),
 
-                }
-                public Scene1(string sceneName, List<Location> sceneLocations)
-                {
-                    Name = sceneName;
-                    SceneLocations = sceneLocations;
-                }
+            };
+            //End new stuff
+            public Scene1()
+            {
+
+            }
+            public Scene1(string sceneName, List<Location> sceneLocations)
+            {
+                Name = sceneName;
+                SceneLocations = sceneLocations;
             }
         }
-        //For testing - will be left here until it works, then move to logic.cs
         public void CreateScene()
         {
             //Do something
@@ -120,5 +135,8 @@ namespace InteractiveFiction_CLI
             //Do something
         }
     }
+    //For testing - will be left here until it works, then move to logic.cs
+
+
 }
 

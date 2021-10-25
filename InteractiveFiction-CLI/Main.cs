@@ -20,9 +20,8 @@ using System.Linq;
 namespace InteractiveFiction_CLI
 {
 
-    partial class Program
+    class Program
     {
-
         static void Main(string[] args)
         {
             Logic.SetScene();
