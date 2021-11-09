@@ -10,23 +10,23 @@ namespace InteractiveFiction_CLI
     {
         private const int InvMaxSlots = 15;
         public List<InventoryEntry> InventoryEntries = new();
-        public void AddItem(PickuppableObject item, int AddToStack)
+        public void AddItem(PickuppableObject inventoryItem, int AddableAmount)
         {
-            while (AddToStack > 0)
+            while (AddableAmount > 0)
             {
-                if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount)))
+                if (InventoryEntries.Exists(x => (x.InventoryObject.ObjectID == inventoryItem.ObjectID) && (x.Amount < inventoryItem.MaxStackCount)))
                 {
-                    InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount));
-                    int MaxAddable = (item.MaxStackCount - inventoryEntry.Amount);
-                    int AddStackCount = Math.Min(item.MaxStackCount, inventoryEntry.Amount);
-                    inventoryEntry.AddToAmount(AddStackCount);
-                    AddToStack -= AddStackCount;
+                    InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InventoryObject.ObjectID == inventoryItem.ObjectID) && (x.Amount < inventoryItem.MaxStackCount));
+                    int MaximumAddable = inventoryItem.MaxStackCount - inventoryEntry.Amount;
+                    int AddAmount = Math.Min(inventoryItem.MaxStackCount, AddableAmount);
+                    inventoryEntry.Amount += AddableAmount;
+                    AddableAmount -= AddAmount;
                 }
                 else
                 {
                     if (InventoryEntries.Count < InvMaxSlots)
                     {
-                        InventoryEntries.Add(new InventoryEntry(item, 0));
+                        InventoryEntries.Add(new InventoryEntry(inventoryItem, 0));
                     }
                     else
                     {
@@ -35,29 +35,38 @@ namespace InteractiveFiction_CLI
                 }
             }
         }
-        public void RemoveItem(PickuppableObject item, int RemoveFromStack)
+        public void RemoveItem(PickuppableObject item, int RemovableAmount)
         {
-            while (RemoveFromStack < 0)
+            while (RemovableAmount < 0)
             {
-                if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount > 0)))
+                if (InventoryEntries.Exists(x => (x.InventoryObject.ObjectID == item.ObjectID) && (x.Amount > 0)))
                 {
-                    InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount > 0));
-                    int NumLeft = (0 + inventoryEntry.Amount);
-                    int SubtractStackCount = Math.Max(0, inventoryEntry.Amount);
-                    inventoryEntry.AddToAmount(SubtractStackCount);
-                    RemoveFromStack += SubtractStackCount;
+                    InventoryEntry inventoryEntry = InventoryEntries.Last(x => (x.InventoryObject.ObjectID == item.ObjectID) && (x.Amount > 0));
+                    int AmountRemovable = Math.Max(RemovableAmount, inventoryEntry.Amount);
+                    inventoryEntry.Amount -= AmountRemovable;
+                    RemovableAmount -= AmountRemovable;
+                    if (inventoryEntry.Amount == 0)
+                    {
+                        RemoveEntry();
+                    }
                 }
                 else
                 {
-                    if (InventoryEntries.Count < InvMaxSlots)
-                    {
-                        InventoryEntries.Add(new InventoryEntry(item, 0));
-                    }
-                    else
-                    {
-                        Console.WriteLine("There is no more inventory space");
-                    }
+                    Console.WriteLine("There is no more inventory space");
+                    break;
                 }
+            }
+        }
+        void RemoveEntry()
+        {
+            int InventoryEntryNum = InventoryEntries.Count - 1;
+            if (InventoryEntries.Count > 0)
+            {
+                InventoryEntries.RemoveAt(InventoryEntryNum);
+            }
+            else
+            {
+                Console.WriteLine("Inventory is empty.");
             }
         }
         public InventorySystem()
@@ -67,11 +76,11 @@ namespace InteractiveFiction_CLI
     }
     public class InventoryEntry
     {
-        public PickuppableObject InvObject { get; set; }
+        public PickuppableObject InventoryObject { get; set; }
         public int Amount { get; set; }
         public InventoryEntry(PickuppableObject item, int amount)
         {
-            InvObject = item;
+            InventoryObject = item;
             Amount = amount;
         }
         public void AddToAmount(int amountToAdd)
@@ -86,7 +95,7 @@ namespace InteractiveFiction_CLI
     }
     public class PickuppableObject
     {
-        public Guid ID { get; set; }
+        public Guid ObjectID { get; set; }
         public string Name { get; set; }
         public int MaxStackCount { get; set; }
 

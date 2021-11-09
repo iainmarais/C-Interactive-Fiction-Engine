@@ -54,7 +54,7 @@ namespace InteractiveFiction_CLI
                     if (currentObject.IsConsumable)
                     {
                         int count = currentContainer.ConsumablesInventory.Count(x => x != null && x.Name.StartsWith(currentObject.Name));
-                     //  Actor.Player.PlayerInventory.Add(currentObject);
+                        //  Actor.Player.PlayerInventory.Add(currentObject);
                         InvSys.AddItem(currentObject, 1);
                         currentContainer.ConsumablesInventory.Remove(currentObject);
                         Console.WriteLine($"You get a {currentObject.Name} from the {currentContainer.Name}");
@@ -107,14 +107,14 @@ namespace InteractiveFiction_CLI
                     if (currentObject.IsConsumable)
                     {
                         int count = currentContainer.ConsumablesInventory.Count(x => x != null && x.Name.StartsWith(currentObject.Name));
-                       
+
                         //  Actor.Player.PlayerInventory.Add(currentObject);
                         InvSys.RemoveItem(currentObject, 1);
                         currentContainer.ConsumablesInventory.Add(currentObject);
                         Console.WriteLine($"You put a {currentObject.Name} in the {currentContainer.Name}");
                     }
                     else
-                    {                    
+                    {
                         // Actor.Player.PlayerInventory.Add(currentObject);
                         InvSys.RemoveItem(currentObject, 1);
                         currentContainer.ConsumablesInventory.Add(currentObject);
@@ -126,7 +126,7 @@ namespace InteractiveFiction_CLI
                     currentContainer = GetCurrentContainer();
                     Object.PickuppableObject currentObject = (Object.PickuppableObject)currentContainer.ContainerInventory.Where(x => x.Name == Object.ObjectName).FirstOrDefault();
                     if (currentObject.HasStackCount)
-                    {                    
+                    {
                         InvSys.RemoveItem(currentObject, 1);
                         currentContainer.ContainerInventory.Add(currentObject);
                         Console.WriteLine($"You put a {currentObject.Name} in the {currentContainer.Name}");
