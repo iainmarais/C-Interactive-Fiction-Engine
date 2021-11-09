@@ -175,11 +175,11 @@ namespace InteractiveFiction_CLI
                         {
                             if (item.StackCount == 0)
                             {
-                                Console.WriteLine($"{currentContainer.LongName} contains {item.Name}");
+                                Console.WriteLine($"{currentContainer.LongName} contains {item.LongName}");
                             }
                             else
                             {
-                                Console.WriteLine($"{currentContainer.LongName} contains {item.StackCount} of item: {item.Name}");
+                                Console.WriteLine($"{currentContainer.LongName} contains {currentContainer.ConsumablesInventory.Count} of item: {item.LongName}");
                             }
                         }
                     }
@@ -195,7 +195,7 @@ namespace InteractiveFiction_CLI
                             }
                             else
                             {
-                                Console.WriteLine($"{currentContainer.LongName} contains {item.StackCount} of item: {item.Name}");
+                                Console.WriteLine($"{currentContainer.LongName} contains {currentContainer.ConsumablesInventory.Count} of item: {item.LongName}");
                             }
                         }
                     }
@@ -222,13 +222,15 @@ namespace InteractiveFiction_CLI
             {
                 if (currentLoc.LocationInventory != null)
                 {
+                    Console.Write($"In {currentLoc.LongName} I can see: ");
                     foreach (var InventoryObject in currentLoc.LocationInventory)
                     {
                         if (currentLoc.LocationInventory.Count > 0)
-                            Console.WriteLine($"{currentLoc.Name} contains: {InventoryObject.Name}");
+                            Console.Write($"{InventoryObject.LongName} ");
                         else
                             Console.WriteLine("There is nothing here.");
                     }
+                    Console.Write("\n");
                 }
                 //Handle the error condition gracefully, thus avoiding exceptions and crashes.
                 else if (currentLoc.LocationInventory == null)
@@ -272,27 +274,27 @@ namespace InteractiveFiction_CLI
                 targetLoc = TargetLocation;
                 if (currentLoc.HasExitN == true && targetLoc.HasExitS == true)
                 {
-                    Console.WriteLine($"There is an exit North, leading to the {targetLoc.LongName}");
+                    Console.WriteLine($"There is an exit North, leading to {targetLoc.LongName}");
                 }
                 if (currentLoc.HasExitS == true && targetLoc.HasExitN == true)
                 {
-                    Console.WriteLine($"There is an exit South, leading to the {targetLoc.LongName}");
+                    Console.WriteLine($"There is an exit South, leading to {targetLoc.LongName}");
                 }
                 if (currentLoc.HasExitE == true && targetLoc.HasExitW == true)
                 {
-                    Console.WriteLine($"There is an exit East, leading to the {targetLoc.LongName}");
+                    Console.WriteLine($"There is an exit East, leading to {targetLoc.LongName}");
                 }
                 if (currentLoc.HasExitW == true && targetLoc.HasExitE == true)
                 {
-                    Console.WriteLine($"There is an exit West, leading to the {targetLoc.LongName}");
+                    Console.WriteLine($"There is an exit West, leading to {targetLoc.LongName}");
                 }
                 if (currentLoc.HasExitUp == true && targetLoc.HasExitDown == true)
                 {
-                    Console.WriteLine($"There is a stairway leading up to the {targetLoc.LongName}");
+                    Console.WriteLine($"There is a stairway leading up to {targetLoc.LongName}");
                 }
                 if (currentLoc.HasExitDown == true && targetLoc.HasExitUp == true)
                 {
-                    Console.WriteLine($"There is a stairway leading down to the {targetLoc.LongName}");
+                    Console.WriteLine($"There is a stairway leading down to {targetLoc.LongName}");
                 }
 
             }

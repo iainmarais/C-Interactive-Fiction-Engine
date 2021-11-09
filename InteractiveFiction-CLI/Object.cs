@@ -209,6 +209,13 @@ namespace InteractiveFiction_CLI
                 MaxStackCount = 1;
                 Name = objectName;
             }
+            public PickuppableObject(string objectName, string longName)
+            {
+                MinStackCount = 1;
+                MaxStackCount = 1;
+                Name = objectName;
+                LongName = longName;
+            }
 
             public class Weapon : PickuppableObject
             {
@@ -316,6 +323,18 @@ namespace InteractiveFiction_CLI
                     Name = potionName;
                     IsConsumable = isConsumable;
                     IsConsumable = true;
+                }
+            }
+            public class PlayerTool : PickuppableObject
+            {
+                public PlayerTool()
+                {
+
+                }
+                public PlayerTool(string toolName, string longName)
+                {
+                    Name = toolName;
+                    LongName = longName;
                 }
             }
         }

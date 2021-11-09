@@ -28,6 +28,7 @@ namespace InteractiveFiction_CLI
         public bool ResistantToKnockout { get; set; }
         public bool IsDead { get; set; }
         public int HitPoints { get; set; }
+        public static int PlayerHitPoints { get; set; }
         public static Actor CurrentActor { get; set; }
         public static Actor TargetActor { get; set; }
         public string ActorName { get; set; }
@@ -82,6 +83,9 @@ namespace InteractiveFiction_CLI
                 do
                 {
                     CurrentActor.HitPoints -= Damage;
+                    PlayerHitPoints -= Damage;
+                    //need to add this in, possibly logic or as an actor var
+                    //Player hp should realistically be a static int since IF is played/read primarly from the first person's POV.
                     Console.WriteLine($"You attack {CurrentActor.ActorName} for {Damage} hitpoints.");
                     if (CurrentActor.HitPoints == 0)
                     {

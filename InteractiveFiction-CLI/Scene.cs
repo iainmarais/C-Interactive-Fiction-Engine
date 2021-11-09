@@ -62,7 +62,7 @@ namespace InteractiveFiction_CLI
 
             public static List<Location> SceneLocations = new()
             {
-                new Location("bedroom", "master bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
+                new Location("bedroom", "my master bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
                     {
                         new Object("bed", "My bed"),
                         new Object("computerdesk", "My computer workstation"),
@@ -91,26 +91,31 @@ namespace InteractiveFiction_CLI
                         }),
                         new Object.Container("cupboard", "My cupboard", new List<Object>
                         {
-                            new Object.PickuppableObject("clothes"),
-                            new Object.PickuppableObject("guitar"),
-                            new Object.PickuppableObject("box of PC parts"),
-                            new Object.PickuppableObject("stack of CDs")
+                            new Object.PickuppableObject("clothes", "Some of my clothes"),
+                            new Object.PickuppableObject("guitar", "My guitar"),
+                            new Object.PickuppableObject("pcparts", "A box of old PC hardware"),
+                            new Object.PickuppableObject("cdstack", "Stack of CDs")
                         }),
                     }, true),
-                new Location("lounge", "lounge", LocID.LocLounge, false, true, false, true, false, false, new List<Object>
+                new Location("lounge", "the lounge", LocID.LocLounge, false, true, false, true, false, false, new List<Object>
                     {
                         new Object("table", "Lounge table"),
                         new Object("chair", "Lounge chair"),
                         new Object("chair", "Lounge chair"),
                         new Object("chair", "Lounge chair"),
                     }, false),
-                new Location("attic", "attic", LocID.LocAttic, false, false, false, false, false, true, new List<Object>
+                new Location("attic", "the attic", LocID.LocAttic, false, false, false, false, false, true, new List<Object>
                     {
                         new Object.Container("chest", "Wooden chest", new List<Object>
-                        { new Object.PickuppableObject.Weapon("blacjack", "Blackjack")
+                        {
+                            new Object.PickuppableObject.Weapon("blackjack", "Blackjack"),
+                            new Object.PickuppableObject.Weapon("bow","High-powered spring-lever bow"),
+                            new Object.PickuppableObject.Weapon("sword","Long sword"),
+                            new Object.PickuppableObject.PlayerTool("squareLockpick", "Square-tooth lockpick"),
+                            new Object.PickuppableObject.PlayerTool("triangleLockpick","Triange-tooth lockpick"),
                         })
                     }, false),
-                new Location("livingroom", "living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
+                new Location("livingroom", "the living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
                 {
                 }, false),
 
