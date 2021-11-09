@@ -212,6 +212,10 @@ namespace InteractiveFiction_CLI
 
             public class Weapon : PickuppableObject
             {
+                public int MinDmg { get; set; }
+                public int MaxDmg { get; set; }
+                public bool IsNonLethal { get; set; }
+                public bool IsRanged { get; set; }
                 public Weapon()
                 {
                     IsWeapon = true;
@@ -233,6 +237,19 @@ namespace InteractiveFiction_CLI
                     IsWeapon = true;
                     MaxStackCount = 1;
                     MinStackCount = 1;
+                }
+                public Weapon(string weaponName, string longName, int minDmg, int maxDmg, bool isNonLethal, bool isRanged)
+                {
+
+                    Name = weaponName;
+                    LongName = longName;
+                    IsWeapon = true;
+                    MaxStackCount = 1;
+                    MinStackCount = 1;
+                    MinDmg = minDmg;
+                    MaxDmg = maxDmg;
+                    IsNonLethal = isNonLethal;
+                    IsRanged = isRanged;
                 }
             }
 
