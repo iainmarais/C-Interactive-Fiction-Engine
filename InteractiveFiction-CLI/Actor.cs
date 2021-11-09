@@ -15,7 +15,7 @@ This project will be entirely c# based.
 
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace InteractiveFiction_CLI
 {
@@ -27,25 +27,38 @@ namespace InteractiveFiction_CLI
         public bool IsKnockedOut { get; set; }
         public bool IsDead { get; set; }
         public int HitPoints { get; set; }
-        public static bool CurrentActor { get; set; }
-        public static bool TargetActor { get; set; }
-        public string Name { get; set; }
+        public static Actor CurrentActor { get; set; }
+        public static Actor TargetActor { get; set; }
+        public string ActorName { get; set; }
         List<Object> ActorInventory = new();
 
         public Actor()
         {
-
+        }
+        //Beginning of the Knockout handler
+        public void KnockOutActor(string actorName)
+        {
+            CurrentActor = Location.CurrentLoc.LocationActors.Where(x => x.ActorName == actorName).FirstOrDefault();
+            if (CurrentActor.ActorName == actorName)
+            {
+                IsKnockedOut = true;
+                Console.WriteLine($"You knock {CurrentActor.ActorName} out.");
+            }
+            else
+            {
+                IsKnockedOut = false;
+                Console.WriteLine($"You fail to knock {CurrentActor.ActorName} out ");
+            }
         }
         public class Guard : Actor
         {
             public Guard()
             {
-
             }
             public Guard(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
             {
                 ActorClass = EActorClass.Guard;
-                Name = actorName;
+                ActorName = actorName;
                 IsKnockedOut = isKnockedOut;
                 IsDead = isDead;
                 ActorInventory = actorInventory;
@@ -55,12 +68,11 @@ namespace InteractiveFiction_CLI
         {
             public UnarmedCitizen()
             {
-
             }
             public UnarmedCitizen(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
             {
                 ActorClass = EActorClass.Citizen;
-                Name = actorName;
+                ActorName = actorName;
                 IsKnockedOut = isKnockedOut;
                 IsDead = isDead;
                 ActorInventory = actorInventory;
@@ -70,12 +82,11 @@ namespace InteractiveFiction_CLI
         {
             public IronBeast()
             {
-
             }
             public IronBeast(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
             {
                 ActorClass = EActorClass.IronBeast;
-                Name = actorName;
+                ActorName = actorName;
                 IsKnockedOut = isKnockedOut;
                 IsDead = isDead;
                 ActorInventory = actorInventory;
@@ -85,7 +96,6 @@ namespace InteractiveFiction_CLI
         {
             public Beast()
             {
-
             }
             public Beast(string actorName, bool isKnockedOut, bool isDead, List<Object> actorInventory)
             {
@@ -102,14 +112,12 @@ namespace InteractiveFiction_CLI
             {
                 InventorySystem myInventory = new();
                 ActorClass = EActorClass.Thief;
-                Name = actorName;
+                ActorName = actorName;
                 PlayerInventory = playerInventory;
                 HitPoints = hp;
                 IsDead = isDead;
                 IsKnockedOut = isKnockedOut;
-
             }
         }
-
     }
 }
