@@ -65,26 +65,26 @@ namespace InteractiveFiction_CLI
                         new Object("computerdesk", "My computer workstation"),
                         new Object.Container("fridge", "My bar fridge", new List<Object.PickuppableObject.Consumable>
                         {
-                            new Object.PickuppableObject.Consumable.Potion("beer",true),
-                            new Object.PickuppableObject.Consumable.Potion("beer",true),
-                            new Object.PickuppableObject.Consumable.Potion("beer",true),
-                            new Object.PickuppableObject.Consumable.Potion("beer",true),
-                            new Object.PickuppableObject.Consumable.Potion("beer",true),
-                            new Object.PickuppableObject.Consumable.Potion("beer",true),
-                            new Object.PickuppableObject.Consumable.Potion("wine",true),
-                            new Object.PickuppableObject.Consumable.Potion("wine",true),
-                            new Object.PickuppableObject.Consumable.Potion("wine",true),
-                            new Object.PickuppableObject.Consumable.Potion("wine",true),
-                            new Object.PickuppableObject.Consumable("steak",true),
-                            new Object.PickuppableObject.Consumable("steak",true),
-                            new Object.PickuppableObject.Consumable("steak",true),
-                            new Object.PickuppableObject.Consumable("steak",true),
-                            new Object.PickuppableObject.Consumable("bottled soda water",true),
-                            new Object.PickuppableObject.Consumable("bottled soda water",true),
-                            new Object.PickuppableObject.Consumable("bottled soda water",true),
-                            new Object.PickuppableObject.Consumable("bottled soda water",true),
-                            new Object.PickuppableObject.Consumable("bottled soda water",true),
-                            new Object.PickuppableObject.Consumable("bottled soda water",true),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
+                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
+                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
+                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
+                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
+                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
+                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
+                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
+                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
+                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
+                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
                         }),
                         new Object.Container("cupboard", "My cupboard", new List<Object>
                         {
@@ -114,6 +114,33 @@ namespace InteractiveFiction_CLI
                     }, false),
                 new Location("livingroom", "the living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
                 {
+                    new Object.SurfaceContainer("wallunit","Modular wall unit", new List<Object>
+                        {
+                        new Object("soundsystem", "High fidelity sound system"),
+                        new Object("speakerL", "Left speaker"),
+                        new Object("speakerR", "Right speaker"),
+                        new Object("hdtv", "High-definition Television"),
+                        },
+                        new List<Object.PickuppableObject>
+                        {
+                            new Object.PickuppableObject("whiskyGlass", "Whisky glass"),
+                            new Object.PickuppableObject("whiskyGlass", "Whisky glass"),
+                            new Object.PickuppableObject("beerGlass", "Beer glass"),
+                            new Object.PickuppableObject("beerGlass", "Beer glass"),
+                            new Object.PickuppableObject("emptyWineBottle", "Empty wine bottle"),
+                        },
+                        new List<Object.PickuppableObject.Consumable>
+                        {
+                            new Object.PickuppableObject.Consumable("whisky", "Scotch whisky"),
+                        }),
+
+                    new Object.Container("boozecabinet", "Drinks cabinet", new List<Object.PickuppableObject.Consumable>
+                    {
+                        new Object.PickuppableObject.Consumable("liqueur","Cream liqueur"),
+                        new Object.PickuppableObject.Consumable("whisky","Vintage Scotch whisky"),
+                        new Object.PickuppableObject.Consumable("goodWine","Collectors' edition vintage red wine"),
+                        new Object.PickuppableObject.Consumable("biltong","Beef biltong"),
+                    }),
                 }, false),
 
             };

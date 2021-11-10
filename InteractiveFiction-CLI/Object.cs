@@ -168,10 +168,44 @@ namespace InteractiveFiction_CLI
                 IsOpen = isOpen;
                 IsLocked = isLocked;
             }
-
             //This function handles querying the container inventory in each Loc. 
             //It gets the Loc from the instantiated objects of said type,
             //and stores them in a static CurrentLoc and uses that to handle the active instance.
+        }
+        //Class for surface container objects, such as tables that can have other objects standing on top of them. 
+        //Surface containers can not be locked, opened or closed.
+        public class SurfaceContainer : Object
+        {
+            public static SurfaceContainer CurrentSurfaceContainer { get; set; }
+            public List<Object> StaticSurfaceObjects { get; set; }
+            public List<PickuppableObject> NonStaticSurfaceObjects { get; set; }
+            public List<PickuppableObject.Consumable> Consumables { get; set; }
+            public SurfaceContainer()
+            {
+
+            }
+            public SurfaceContainer(string containerName, string longName, List<Object> staticObjs)
+            {
+                Name = containerName;
+                LongName = longName;
+                StaticSurfaceObjects = staticObjs;
+            }
+            public SurfaceContainer(string containerName, string longName, List<Object> staticObjs, List<Object.PickuppableObject> nonStaticObjs, List<Object.PickuppableObject.Consumable> consumables)
+            {
+                Name = containerName;
+                LongName = longName;
+                StaticSurfaceObjects = staticObjs;
+                NonStaticSurfaceObjects = nonStaticObjs;
+                Consumables = consumables;
+            }
+            public SurfaceContainer(string containerName, string longName, List<Object> staticObjs, List<Object.PickuppableObject> nonStaticObjs)
+            {
+                Name = containerName;
+                LongName = longName;
+                StaticSurfaceObjects = staticObjs;
+                NonStaticSurfaceObjects = nonStaticObjs;
+            }
+
         }
         public Object()
         {
@@ -290,16 +324,13 @@ namespace InteractiveFiction_CLI
                     public Potion(string potionName)
                     {
                         Name = potionName;
+                        IsConsumable = true;
                     }
-                    public Potion(string potionName, int stackCount)
+                    public Potion(string potionName, string longName)
                     {
                         Name = potionName;
-                        StackCount = stackCount;
-                    }
-                    public Potion(string potionName, bool isConsumable)
-                    {
-                        Name = potionName;
-                        IsConsumable = isConsumable;
+                        LongName = longName;
+                        IsConsumable = true;
                     }
                 }
                 public Consumable()
@@ -312,16 +343,10 @@ namespace InteractiveFiction_CLI
                     Name = consumableName;
                     IsConsumable = true;
                 }
-                public Consumable(string consumableName, int stackCount)
+                public Consumable(string consumableName, string longName)
                 {
                     Name = consumableName;
-                    StackCount = stackCount;
-                    IsConsumable = true;
-                }
-                public Consumable(string potionName, bool isConsumable)
-                {
-                    Name = potionName;
-                    IsConsumable = isConsumable;
+                    LongName = longName;
                     IsConsumable = true;
                 }
             }

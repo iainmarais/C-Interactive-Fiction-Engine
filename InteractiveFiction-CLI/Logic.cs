@@ -159,6 +159,62 @@ namespace InteractiveFiction_CLI
             }
             return currentContainer;
         }
+        public static Object.SurfaceContainer GetCurrentSurfaceContainer()
+        {
+            Location currentLoc = GetCurrentLoc();
+            Object.SurfaceContainer currentContainer = new();
+            if (Object.SurfaceContainer.CurrentSurfaceContainer != null)
+            {
+                currentContainer = (Object.SurfaceContainer)Object.SurfaceContainer.CurrentSurfaceContainer;
+            }
+            else if (Object.SurfaceContainer.CurrentSurfaceContainer == null)
+            {
+                currentContainer = (Object.SurfaceContainer)currentLoc.LocationInventory.Where(x => x.Name == Object.ContainerName).FirstOrDefault();
+            }
+            return currentContainer;
+        }
+        public static void GetSurfaceContainerObjects()
+        {
+            try
+            {
+                Object.SurfaceContainer currentContainer = GetCurrentSurfaceContainer();
+                if (currentContainer == null)
+                {
+                    Console.WriteLine("There is no container of that type here");
+                }
+                if (currentContainer.NonStaticSurfaceObjects != null)
+                {
+                    Console.Write("I see: ");
+                    foreach (var Object in currentContainer.NonStaticSurfaceObjects)
+                    {
+                        Console.Write($"{Object.LongName} ");
+                    }
+                    Console.Write($"on the {currentContainer.LongName}. \n");
+                }
+                if (currentContainer.StaticSurfaceObjects != null)
+                {
+                    Console.Write("I see: ");
+                    foreach (var Object in currentContainer.StaticSurfaceObjects)
+                    {
+                        Console.Write($"{Object.LongName} ");
+                    }
+                    Console.Write($"on the {currentContainer.LongName}. \n");
+                }
+                if (currentContainer.Consumables != null)
+                {
+                    Console.Write("I see: ");
+                    foreach (var Object in currentContainer.Consumables)
+                    {
+                        Console.Write($"{Object.LongName} ");
+                    }
+                    Console.Write($"on the {currentContainer.LongName}. \n");
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("There is no container of that type here");
+            }
+        }
         public static void GetContainerInventory()
         {
             try

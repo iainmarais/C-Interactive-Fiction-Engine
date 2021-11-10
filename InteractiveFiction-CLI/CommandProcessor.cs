@@ -288,15 +288,15 @@ namespace InteractiveFiction_CLI
                                 }
                                 else if (myWord2 == "on")
                                 {
-                                    string myWord3 = WordList.ContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault();
+                                    string myWord3 = WordList.SurfaceContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault();
                                     if (myWord3 == null)
                                     {
                                         Console.WriteLine("Look on where?");
                                     }
                                     else if (myWord != null) //temporary handler for non-null container of the surface type
                                     {
-                                        Object.ContainerName = myWord3;
-                                        Console.WriteLine("I would like to do that but I just don't know how yet");
+                                        Object.SurfaceContainer.ContainerName = myWord3;
+                                        Logic.GetSurfaceContainerObjects();
                                     }
                                 }
                             }
