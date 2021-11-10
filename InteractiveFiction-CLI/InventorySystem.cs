@@ -8,7 +8,7 @@ namespace InteractiveFiction_CLI
 {
     public class InventorySystem
     {
-        private const int InvMaxSlots = 15;
+        private const int MaxInvSlots = 15;
         public List<InventoryEntry> InventoryEntries = new();
         public void AddItem(PickuppableObject inventoryItem, int AddableAmount)
         {
@@ -24,7 +24,7 @@ namespace InteractiveFiction_CLI
                 }
                 else
                 {
-                    if (InventoryEntries.Count < InvMaxSlots)
+                    if (InventoryEntries.Count < MaxInvSlots)
                     {
                         InventoryEntries.Add(new InventoryEntry(inventoryItem, 0));
                     }

@@ -24,6 +24,8 @@ namespace InteractiveFiction_CLI
     {
         static void Main(string[] args)
         {
+            Actor.Player myPlayer = new("Garrett", 20, false, false);
+            myPlayer.PlayerInventory = new();
             Logic.SetScene();
             CommandProcessor.Command myCommand = new();
             do

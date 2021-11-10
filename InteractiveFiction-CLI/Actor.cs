@@ -33,6 +33,7 @@ namespace InteractiveFiction_CLI
         public static Actor TargetActor { get; set; }
         public string ActorName { get; set; }
         List<Object> ActorInventory = new();
+        public InventorySystem PlayerInventory { get; set; }
 
         public Actor()
         {
@@ -161,16 +162,27 @@ namespace InteractiveFiction_CLI
         }
         public class Player : Actor
         {
-            public static List<Object> PlayerInventory = new();
-            public Player(string actorName, List<Object> playerInventory, int hp, bool isDead, bool isKnockedOut)
+            public Player(string actorName, int hp, bool isDead, bool isKnockedOut)
             {
-                InventorySystem myInventory = new();
+                ActorClass = EActorClass.Thief;
+                ActorName = actorName;
+                HitPoints = hp;
+                IsDead = isDead;
+                IsKnockedOut = isKnockedOut;
+            }
+
+            public Player(string actorName, InventorySystem playerInventory, int hp, bool isDead, bool isKnockedOut)
+            {
                 ActorClass = EActorClass.Thief;
                 ActorName = actorName;
                 PlayerInventory = playerInventory;
                 HitPoints = hp;
                 IsDead = isDead;
                 IsKnockedOut = isKnockedOut;
+            }
+            public Player()
+            {
+
             }
         }
     }

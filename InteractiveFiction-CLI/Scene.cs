@@ -56,10 +56,7 @@ namespace InteractiveFiction_CLI
                                                  "A small house in the older part of the city, where the City Watch is not frequently seen.\n" +
                                                  "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.\n" +
                                                  "\n";
-            new public static List<Location> Locations = new();
-
             //New stuff
-
             public static List<Location> SceneLocations = new()
             {
                 new Location("bedroom", "my master bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
