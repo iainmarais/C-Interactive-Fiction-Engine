@@ -30,7 +30,9 @@ namespace InteractiveFiction_CLI
                     }
                     else
                     {
-                        Console.WriteLine($"{ConsoleColor.Red}There is no more inventory space{ConsoleColor.Gray}");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"There is no more inventory space!");
+                        Console.ForegroundColor = ConsoleColor.Gray;
                     }
                 }
             }
