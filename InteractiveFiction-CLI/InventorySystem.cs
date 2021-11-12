@@ -10,7 +10,7 @@ namespace InteractiveFiction_CLI
     {
         private const int MaxInvSlots = 15;
         public List<InventoryEntry> InventoryEntries = new();
-        public void AddItem(PickuppableObject inventoryItem, int AddableAmount)
+        public void AddItem(Object.PickuppableObject inventoryItem, int AddableAmount)
         {
             while (AddableAmount > 0)
             {
@@ -35,14 +35,14 @@ namespace InteractiveFiction_CLI
                 }
             }
         }
-        public void RemoveItem(PickuppableObject item, int RemovableAmount)
+        public void RemoveItem(Object.PickuppableObject item, int RemovableAmount)
         {
-            while (RemovableAmount < 0)
+            while (RemovableAmount > 0)
             {
                 if (InventoryEntries.Exists(x => (x.InventoryObject.ObjectID == item.ObjectID) && (x.Amount > 0)))
                 {
                     InventoryEntry inventoryEntry = InventoryEntries.Last(x => (x.InventoryObject.ObjectID == item.ObjectID) && (x.Amount > 0));
-                    int AmountRemovable = Math.Max(RemovableAmount, inventoryEntry.Amount);
+                    int AmountRemovable = Math.Min(RemovableAmount, inventoryEntry.Amount);
                     inventoryEntry.Amount -= AmountRemovable;
                     RemovableAmount -= AmountRemovable;
                     if (inventoryEntry.Amount == 0)
@@ -52,7 +52,7 @@ namespace InteractiveFiction_CLI
                 }
                 else
                 {
-                    Console.WriteLine("There is no more inventory space");
+                    Console.WriteLine($"You have no more of {item.Name} in your inventory.");
                     break;
                 }
             }
@@ -76,50 +76,19 @@ namespace InteractiveFiction_CLI
     }
     public class InventoryEntry
     {
-        public PickuppableObject InventoryObject { get; set; }
+        public Object.PickuppableObject InventoryObject { get; set; }
         public int Amount { get; set; }
-        public InventoryEntry(PickuppableObject item, int amount)
+        public InventoryEntry(Object.PickuppableObject item, int amount)
         {
             InventoryObject = item;
             Amount = amount;
         }
-        public void AddToAmount(int amountToAdd)
-        {
-            Amount += amountToAdd;
-        }
-
-        public void SubtractFromAmount(int amountToRemove)
-        {
-            Amount -= amountToRemove;
-        }
     }
-    public class PickuppableObject
+    public partial class Object
     {
-        public Guid ObjectID { get; set; }
-        public string Name { get; set; }
-        public int MaxStackCount { get; set; }
-
-        public PickuppableObject()
+        public partial class PickuppableObject : Object
         {
-            MaxStackCount = 1;
-        }
-        public class Potion : PickuppableObject
-        {
-            public Potion()
-            {
-                MaxStackCount = 10;
-            }
-        }
-        public class Weapon : PickuppableObject
-        {
-
-        }
-        public class Ammo : PickuppableObject
-        {
-            public Ammo()
-            {
-                MaxStackCount = 50;
-            }
+            public Guid ObjectID { get; set; }
         }
     }
 }

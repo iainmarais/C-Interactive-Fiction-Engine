@@ -143,7 +143,7 @@ namespace InteractiveFiction_CLI
                                 if (myWord2 == WordList.ObjectNames.Where(x => x.Contains(Word2)).FirstOrDefault())
                                 {
                                     myWord2 = WordList.ObjectNames.Where(x => x.Contains(Word2)).FirstOrDefault();
-                                    Object.ObjectName = myWord2;
+                                    Object myObject = new();
                                     string myWord3 = WordList.HelperWords.Where(x => x.Contains(Word3)).FirstOrDefault();
                                     if (myWord3 == "in")
                                     {
@@ -154,12 +154,14 @@ namespace InteractiveFiction_CLI
                                         }
                                         else if (myWord4 == WordList.ContainerNames.Where(x => x.Contains(Word4)).FirstOrDefault())
                                         {
+                                            Object.Container myContainer = new();
+                                            myContainer.Name = myWord4;
                                             try
                                             {
                                                 {
                                                     Object.ContainerName = myWord4;
                                                     // throw new NotImplementedException("Not implemented");
-                                                    Logic.PutObject();
+                                                    myObject.PutObject(myWord4, myWord2);
                                                 }
                                             }
                                             catch (NotImplementedException)
@@ -171,8 +173,8 @@ namespace InteractiveFiction_CLI
                                 }
                                 if (myWord2 == WordList.ConsumableNames.Where(x => x.Contains(Word2)).FirstOrDefault())
                                 {
-                                    myWord2 = WordList.ConsumableNames.Where(x => x.Contains(Word2)).FirstOrDefault();
-                                    Object.ObjectName = myWord2;
+                                    Object myObject = new();
+                                    myObject.Name = myWord2;
                                     string myWord3 = WordList.HelperWords.Where(x => x.Contains(Word3)).FirstOrDefault();
                                     if (myWord3 == "in")
                                     {
@@ -186,9 +188,10 @@ namespace InteractiveFiction_CLI
                                             try
                                             {
                                                 {
-                                                    Object.ContainerName = myWord4;
+                                                    Object.Container myContainer = new();
+                                                    myContainer.Name = myWord4;
                                                     //  throw new NotImplementedException("Not implemented");
-                                                    Logic.PutObject();
+                                                    myObject.PutObject(myWord4, myWord2);
                                                 }
                                             }
                                             catch (NotImplementedException)
@@ -213,8 +216,8 @@ namespace InteractiveFiction_CLI
                             {
                                 if (myWord2 == WordList.ObjectNames.Where(x => x.Contains(Word2)).FirstOrDefault())
                                 {
-                                    myWord2 = WordList.ObjectNames.Where(x => x.Contains(Word2)).FirstOrDefault();
-                                    Object.ObjectName = myWord2;
+                                    Object myObject = new();
+                                    myObject.Name = myWord2;
                                     string myWord3 = WordList.HelperWords.Where(x => x.Contains(Word3)).FirstOrDefault();
 
                                     if (myWord3 == "from")
@@ -226,15 +229,17 @@ namespace InteractiveFiction_CLI
                                         }
                                         else if (myWord4 == WordList.ContainerNames.Where(x => x.Contains(Word4)).FirstOrDefault())
                                         {
-                                            Object.ContainerName = myWord4;
-                                            Logic.GetObject();
+                                            Object.Container myContainer = new();
+                                            myContainer.Name = myWord4;
+                                            myObject.GetObject(myWord4, myWord2);
                                         }
                                     }
                                 }
 
                                 if (myWord2 == WordList.ConsumableNames.Where(x => x.Contains(Word2)).FirstOrDefault())
                                 {
-                                    Object.ConsumableName = myWord2;
+                                    Object myObject = new();
+                                    myObject.Name = myWord2;
                                     string myWord3 = WordList.HelperWords.Where(x => x.Contains(Word3)).FirstOrDefault();
                                     if (myWord3 == null)
                                     {
@@ -249,8 +254,9 @@ namespace InteractiveFiction_CLI
                                         }
                                         else if (myWord4 == WordList.ContainerNames.Where(x => x.Contains(Word4)).FirstOrDefault())
                                         {
-                                            Object.ContainerName = myWord4;
-                                            Logic.GetObject();
+                                            Object.Container myContainer = new();
+                                            myContainer.Name = myWord4;
+                                            myObject.GetObject(myWord4, myWord2);
                                         }
                                     }
                                 }
@@ -278,12 +284,12 @@ namespace InteractiveFiction_CLI
                                     }
                                     else if (myWord3 == WordList.ContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault())
                                     {
-                                        Object.ContainerName = myWord3;
-                                        Logic.GetContainerInventory();
+                                        Object.Container myContainer = new();
+                                        myContainer.GetContainerInventory(myWord3);
                                     }
-                                    else if (myWord3 == WordList.ContainerNames.Where(x => x.Contains(Word3)).FirstOrDefault())
+                                    else
                                     {
-                                        Logic.GetContainerInventory();
+                                        Console.WriteLine("Invalid container name specified. Please try again.");
                                     }
                                 }
                                 else if (myWord2 == "on")
@@ -293,10 +299,10 @@ namespace InteractiveFiction_CLI
                                     {
                                         Console.WriteLine("Look on where?");
                                     }
-                                    else if (myWord != null) //temporary handler for non-null container of the surface type
+                                    else if (myWord3 != null) //temporary handler for non-null container of the surface type
                                     {
-                                        Object.SurfaceContainer.ContainerName = myWord3;
-                                        Logic.GetSurfaceContainerObjects();
+                                        Object.SurfaceContainer myContainer = new();
+                                        myContainer.GetSurfaceContainerObjects(myWord3);
                                     }
                                 }
                             }

@@ -23,91 +23,91 @@ using System.Threading.Tasks;
 namespace InteractiveFiction_CLI
 {
 
-    public class InventorySystem
-    {
-        private const int InvMaxSlots = 15;
-        private const int InvMinSlots = 1;
-        public readonly List<InventoryEntry> InventoryEntries = new();
-        public void AddItem(Object.PickuppableObject item, int AddToStack)
-        {
-            while (AddToStack > 0)
-            {
-                if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount)))
-                {
-                    InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount));
-                    int MaxAddable = (item.MaxStackCount - inventoryEntry.Amount);
-                    int AddStackCount = Math.Min(AddToStack, item.MaxStackCount);
-                    inventoryEntry.AddToAmount(AddStackCount);
-                    AddToStack -= AddStackCount;
-                }
-                else
-                {
-                    if (InventoryEntries.Count < InvMaxSlots)
-                    {
-                        InventoryEntries.Add(new InventoryEntry(item, 0));
-                    }
-                    else
-                    {
-                        Console.WriteLine("There is no more inventory space");
-                    }
-                }
-            }
-        }
-        public void RemoveItem(Object.PickuppableObject item, int RemoveFromStack)
-        {
-            while (RemoveFromStack > 0)
-            {
-                if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount > 0)))
-                {
-                    InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount >= item.MinStackCount));
-                    int NumLeft = (item.MinStackCount + inventoryEntry.Amount);
-                    int SubtractStackCount = Math.Min(RemoveFromStack, inventoryEntry.Amount);
-                    inventoryEntry.SubtractFromAmount(SubtractStackCount);
-                    RemoveFromStack -= SubtractStackCount;
-                }
-                else
-                {
-                    if (InventoryEntries.Count > InvMinSlots)
-                    {
-                        InventoryEntries.Remove(new InventoryEntry(item, item.MinStackCount));
-                    }
-                    else if (InventoryEntries.Count == InvMinSlots)
-                    {
-                        Console.WriteLine($"You have no more left of: {item.Name} ");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("There is no more inventory space");
-                    }
-                }
-            }
-        }
-        public InventorySystem()
-        {
+    //public class InventorySystem
+    //{
+    //    private const int InvMaxSlots = 15;
+    //    private const int InvMinSlots = 1;
+    //    public readonly List<InventoryEntry> InventoryEntries = new();
+    //    public void AddItem(Object.PickuppableObject item, int AddToStack)
+    //    {
+    //        while (AddToStack > 0)
+    //        {
+    //            if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount)))
+    //            {
+    //                InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount < item.MaxStackCount));
+    //                int MaxAddable = (item.MaxStackCount - inventoryEntry.Amount);
+    //                int AddStackCount = Math.Min(AddToStack, item.MaxStackCount);
+    //                inventoryEntry.AddToAmount(AddStackCount);
+    //                AddToStack -= AddStackCount;
+    //            }
+    //            else
+    //            {
+    //                if (InventoryEntries.Count < InvMaxSlots)
+    //                {
+    //                    InventoryEntries.Add(new InventoryEntry(item, 0));
+    //                }
+    //                else
+    //                {
+    //                    Console.WriteLine("There is no more inventory space");
+    //                }
+    //            }
+    //        }
+    //    }
+    //    public void RemoveItem(Object.PickuppableObject item, int RemoveFromStack)
+    //    {
+    //        while (RemoveFromStack > 0)
+    //        {
+    //            if (InventoryEntries.Exists(x => (x.InvObject.ID == item.ID) && (x.Amount > 0)))
+    //            {
+    //                InventoryEntry inventoryEntry = InventoryEntries.First(x => (x.InvObject.ID == item.ID) && (x.Amount >= item.MinStackCount));
+    //                int NumLeft = (item.MinStackCount + inventoryEntry.Amount);
+    //                int SubtractStackCount = Math.Min(RemoveFromStack, inventoryEntry.Amount);
+    //                inventoryEntry.SubtractFromAmount(SubtractStackCount);
+    //                RemoveFromStack -= SubtractStackCount;
+    //            }
+    //            else
+    //            {
+    //                if (InventoryEntries.Count > InvMinSlots)
+    //                {
+    //                    InventoryEntries.Remove(new InventoryEntry(item, item.MinStackCount));
+    //                }
+    //                else if (InventoryEntries.Count == InvMinSlots)
+    //                {
+    //                    Console.WriteLine($"You have no more left of: {item.Name} ");
+    //                    break;
+    //                }
+    //                else
+    //                {
+    //                    Console.WriteLine("There is no more inventory space");
+    //                }
+    //            }
+    //        }
+    //    }
+    //    public InventorySystem()
+    //    {
 
-        }
-    }
-    public class InventoryEntry
-    {
-        public Object.PickuppableObject InvObject { get; private set; }
-        public int Amount { get; private set; }
-        public InventoryEntry(Object.PickuppableObject item, int amount)
-        {
-            InvObject = item;
-            Amount = amount;
-        }
-        public void AddToAmount(int amountToAdd)
-        {
-            Amount += amountToAdd;
-        }
-        public void SubtractFromAmount(int amountToRemove)
-        {
-            Amount -= amountToRemove;
-        }
-    }
+    //    }
+    //}
+    //public class InventoryEntry
+    //{
+    //    public Object.PickuppableObject InvObject { get; private set; }
+    //    public int Amount { get; private set; }
+    //    public InventoryEntry(Object.PickuppableObject item, int amount)
+    //    {
+    //        InvObject = item;
+    //        Amount = amount;
+    //    }
+    //    public void AddToAmount(int amountToAdd)
+    //    {
+    //        Amount += amountToAdd;
+    //    }
+    //    public void SubtractFromAmount(int amountToRemove)
+    //    {
+    //        Amount -= amountToRemove;
+    //    }
+    //}
     //Top level class for Objects.
-    public class Object
+    public partial class Object
     {
         public bool HasStackCount { get; set; }
         public int StackCount { get; set; }
@@ -168,6 +168,55 @@ namespace InteractiveFiction_CLI
                 IsOpen = isOpen;
                 IsLocked = isLocked;
             }
+            public void GetContainerInventory(string containerName)
+            {
+                Location currentLoc = Logic.GetCurrentLoc();
+                var myContainer = (Container)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
+                try
+                {
+                    if (myContainer == null)
+                    {
+                        Console.WriteLine("There is no container of that type here");
+                    }
+                    else if (myContainer.ConsumablesInventory != null)
+                    {
+                        {
+                            foreach (var item in myContainer.ConsumablesInventory)
+                            {
+                                if (item.StackCount == 0)
+                                {
+                                    Console.WriteLine($"{myContainer.LongName} contains {item.LongName}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{myContainer.LongName} contains {myContainer.ConsumablesInventory.Count} of item: {item.LongName}");
+                                }
+                            }
+                        }
+                    }
+                    else if (myContainer.ContainerInventory != null)
+                    {
+                        {
+                            foreach (var item in myContainer.ContainerInventory)
+                            {
+                                if (item.StackCount == 0)
+                                {
+                                    Console.WriteLine($"{myContainer.LongName} contains {item.LongName}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{myContainer.LongName} contains {myContainer.ConsumablesInventory.Count} of item: {item.LongName}");
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (ArgumentNullException)//test catch here and return safely. Crashing != option here -
+                                             //Simply tell the player/reader there is no sodding container of that type here.
+                {
+                    Console.WriteLine("There is no container of that type here");
+                }
+            }
             //This function handles querying the container inventory in each Loc. 
             //It gets the Loc from the instantiated objects of said type,
             //and stores them in a static CurrentLoc and uses that to handle the active instance.
@@ -176,7 +225,6 @@ namespace InteractiveFiction_CLI
         //Surface containers can not be locked, opened or closed.
         public class SurfaceContainer : Object
         {
-            public static SurfaceContainer CurrentSurfaceContainer { get; set; }
             public List<Object> StaticSurfaceObjects { get; set; }
             public List<PickuppableObject> NonStaticSurfaceObjects { get; set; }
             public List<PickuppableObject.Consumable> Consumables { get; set; }
@@ -206,6 +254,118 @@ namespace InteractiveFiction_CLI
                 NonStaticSurfaceObjects = nonStaticObjs;
             }
 
+            public void GetSurfaceContainerObjects(string containerName)
+            {
+                Location currentLoc = Logic.GetCurrentLoc();
+                var myContainer = (SurfaceContainer)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
+                try
+                {
+                    if (myContainer == null)
+                    {
+                        Console.WriteLine("There is no container of that type here");
+                    }
+                    if (myContainer.NonStaticSurfaceObjects != null)
+                    {
+                        Console.Write("I see: ");
+                        foreach (var Object in myContainer.NonStaticSurfaceObjects)
+                        {
+                            Console.Write($"{Object.LongName} ");
+                        }
+                        Console.Write($"on the {myContainer.LongName}. \n");
+                    }
+                    if (myContainer.StaticSurfaceObjects != null)
+                    {
+                        Console.Write("I see: ");
+                        foreach (var Object in myContainer.StaticSurfaceObjects)
+                        {
+                            Console.Write($"{Object.LongName} ");
+                        }
+                        Console.Write($"on the {myContainer.LongName}. \n");
+                    }
+                    if (myContainer.Consumables != null)
+                    {
+                        Console.Write("I see: ");
+                        foreach (var Object in myContainer.Consumables)
+                        {
+                            Console.Write($"{Object.LongName} ");
+                        }
+                        Console.Write($"on the {myContainer.LongName}. \n");
+                    }
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("There is no container of that type here");
+                }
+                catch (NullReferenceException)
+                {
+                    Console.WriteLine($"That container does not exist in {currentLoc.LongName}");
+                }
+            }
+
+        }
+        public void PutObject(string containerName, string objectName)
+        {
+            Location currentLoc = Logic.GetCurrentLoc();
+            var myContainer = (Container)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
+
+            try
+            {
+
+                if (myContainer.ContainerInventory != null)
+                {
+                    var myObject = (PickuppableObject)myContainer.ContainerInventory.Where(x => x.Name == objectName).FirstOrDefault();
+                    Logic.InvSys.RemoveItem(myObject, 1);
+                    myContainer.ContainerInventory.Add(myObject);
+
+                }
+                else if (myContainer.ConsumablesInventory != null)
+                {
+                    var myObject = (PickuppableObject.Consumable)myContainer.ConsumablesInventory.Where(x => x.Name == objectName).FirstOrDefault();
+                    Logic.InvSys.RemoveItem(myObject, 1);
+                    myContainer.ConsumablesInventory.Add(myObject);
+                }
+                else
+                {
+                    Console.WriteLine($"{myContainer.LongName} is empty or is not a container");
+                }
+
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("No object of that type exists yet");
+            }
+        }
+        public void GetObject(string containerName, string objectName)
+        {
+            Location currentLoc = Logic.GetCurrentLoc();
+            var myContainer = (Container)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
+            try
+            {
+
+                if (myContainer.ContainerInventory != null)
+                {
+                    var myObject = (PickuppableObject)myContainer.ContainerInventory.Where(x => x.Name == objectName).FirstOrDefault();
+                    Logic.InvSys.AddItem(myObject, 1);
+                    myContainer.ContainerInventory.Remove(myObject);
+
+                }
+                else if (myContainer.ConsumablesInventory != null)
+                {
+                    var myObject = (PickuppableObject.Consumable)myContainer.ConsumablesInventory.Where(x => x.Name == objectName).FirstOrDefault();
+                    Logic.InvSys.AddItem(myObject, 1);
+                    myContainer.ConsumablesInventory.Remove(myObject);
+
+                }
+                else
+                {
+                    Console.WriteLine("There is no more space to put anything.");
+                }
+
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("No object of that type exists yet");
+            }
         }
         public Object()
         {
@@ -224,7 +384,7 @@ namespace InteractiveFiction_CLI
 
         //Copied over from InvSys file.
 
-        public class PickuppableObject : Object
+        public partial class PickuppableObject : Object
         {
             public bool IsAmmo { get; set; }
             public bool IsConsumable { get; set; }
@@ -235,18 +395,15 @@ namespace InteractiveFiction_CLI
             public PickuppableObject()
             {
                 MinStackCount = 1;
-                MaxStackCount = 1;
             }
             public PickuppableObject(string objectName)
             {
                 MinStackCount = 1;
-                MaxStackCount = 1;
                 Name = objectName;
             }
             public PickuppableObject(string objectName, string longName)
             {
                 MinStackCount = 1;
-                MaxStackCount = 1;
                 Name = objectName;
                 LongName = longName;
             }
@@ -267,8 +424,8 @@ namespace InteractiveFiction_CLI
                 {
                     Name = weaponName;
                     IsWeapon = true;
-                    MaxStackCount = 1;
                     MinStackCount = 1;
+                    MaxStackCount = 1;
                 }
                 public Weapon(string weaponName, string longName)
                 {
@@ -276,8 +433,8 @@ namespace InteractiveFiction_CLI
                     Name = weaponName;
                     LongName = longName;
                     IsWeapon = true;
-                    MaxStackCount = 1;
                     MinStackCount = 1;
+                    MaxStackCount = 1;
                 }
                 public Weapon(string weaponName, string longName, int minDmg, int maxDmg, bool isNonLethal, bool isRanged)
                 {
@@ -285,8 +442,8 @@ namespace InteractiveFiction_CLI
                     Name = weaponName;
                     LongName = longName;
                     IsWeapon = true;
-                    MaxStackCount = 1;
                     MinStackCount = 1;
+                    MaxStackCount = 1;
                     MinDmg = minDmg;
                     MaxDmg = maxDmg;
                     IsNonLethal = isNonLethal;
@@ -298,15 +455,15 @@ namespace InteractiveFiction_CLI
             {
                 public Ammo()
                 {
-                    MinStackCount = 1;
                     MaxStackCount = 50;
+                    MinStackCount = 1;
                     IsAmmo = true;
                 }
                 public Ammo(string ammoName)
                 {
                     Name = ammoName;
-                    MinStackCount = 1;
                     MaxStackCount = 50;
+                    MinStackCount = 1;
                     IsAmmo = true;
                 }
             }
@@ -319,23 +476,28 @@ namespace InteractiveFiction_CLI
                     public bool IsPotion { get; set; }
                     public Potion()
                     {
+                        MinStackCount = 1;
+                        MaxStackCount = 10;
                         IsConsumable = true;
                     }
                     public Potion(string potionName)
                     {
                         Name = potionName;
+                        MinStackCount = 1;
+                        MaxStackCount = 10;
                         IsConsumable = true;
                     }
                     public Potion(string potionName, string longName)
                     {
                         Name = potionName;
                         LongName = longName;
+                        MinStackCount = 1;
+                        MaxStackCount = 10;
                         IsConsumable = true;
                     }
                 }
                 public Consumable()
                 {
-                    MaxStackCount = 10;
                     IsConsumable = true;
                 }
                 public Consumable(string consumableName)
@@ -354,7 +516,7 @@ namespace InteractiveFiction_CLI
             {
                 public PlayerTool()
                 {
-
+                    MinStackCount = 1;
                 }
                 public PlayerTool(string toolName, string longName)
                 {
