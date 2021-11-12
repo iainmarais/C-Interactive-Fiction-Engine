@@ -314,21 +314,42 @@ namespace InteractiveFiction_CLI
                 if (myContainer.ContainerInventory != null)
                 {
                     var myObject = (PickuppableObject)myContainer.ContainerInventory.Where(x => x.Name == objectName).FirstOrDefault();
-                    Logic.InvSys.RemoveItem(myObject, 1);
-                    myContainer.ContainerInventory.Add(myObject);
-
+                    if (Logic.InvSys.InventoryEntries.Exists(x => x.Amount > 0))
+                    {
+                        Logic.InvSys.RemoveItem(myObject, 1);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"You put the {myObject.Name} in the {myContainer.Name}");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        myContainer.ContainerInventory.Add(myObject);
+                    }
+                    else 
+                    {
+                        Console.WriteLine($"You don't have the {myObject.Name} in your inventory");
+                    }
                 }
                 else if (myContainer.ConsumablesInventory != null)
                 {
                     var myObject = (PickuppableObject.Consumable)myContainer.ConsumablesInventory.Where(x => x.Name == objectName).FirstOrDefault();
-                    Logic.InvSys.RemoveItem(myObject, 1);
-                    myContainer.ConsumablesInventory.Add(myObject);
+                    //explicitly check inventory for said object.
+                    //Can help to avoid NRE's since inventory entries are cleared when empty. 
+                    //Also avoids duplicated container and/or consumable inventory items
+                    if (Logic.InvSys.InventoryEntries.Exists(x => x.Amount > 0))
+                    {
+                        Logic.InvSys.RemoveItem(myObject, 1);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"You put a {myObject.Name} in the {myContainer.Name}");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        myContainer.ConsumablesInventory.Add(myObject);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You don't have any of {myObject.Name} in your inventory");
+                    }
                 }
                 else
                 {
                     Console.WriteLine($"{myContainer.LongName} is empty or is not a container");
                 }
-
             }
             catch (NullReferenceException)
             {
@@ -346,6 +367,9 @@ namespace InteractiveFiction_CLI
                 {
                     var myObject = (PickuppableObject)myContainer.ContainerInventory.Where(x => x.Name == objectName).FirstOrDefault();
                     Logic.InvSys.AddItem(myObject, 1);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"You get a {myObject.Name} from the {myContainer.Name}");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     myContainer.ContainerInventory.Remove(myObject);
 
                 }
@@ -353,6 +377,9 @@ namespace InteractiveFiction_CLI
                 {
                     var myObject = (PickuppableObject.Consumable)myContainer.ConsumablesInventory.Where(x => x.Name == objectName).FirstOrDefault();
                     Logic.InvSys.AddItem(myObject, 1);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"You get the {myObject.Name} from the {myContainer.Name}");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     myContainer.ConsumablesInventory.Remove(myObject);
 
                 }

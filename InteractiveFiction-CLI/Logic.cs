@@ -63,7 +63,9 @@ namespace InteractiveFiction_CLI
             if (currentLoc == null)
             {
                 //Handle the error condition gracefully, thus avoiding exceptions and crashes.
-                Console.WriteLine("I see absolutely nothing.");
+                Console.Write("I see absolutely ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("nothing.\n");
             }
             else
             {
@@ -73,9 +75,17 @@ namespace InteractiveFiction_CLI
                     foreach (var InventoryObject in currentLoc.LocationInventory)
                     {
                         if (currentLoc.LocationInventory.Count > 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.Write($"{InventoryObject.LongName} ");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
                         else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("There is nothing here.");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
                     }
                     Console.Write("\n");
                 }
