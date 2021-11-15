@@ -43,25 +43,30 @@ namespace InteractiveFiction_CLI
         //if not, it will warn the user.
         public void KnockOutActor(string actorName)
         {
+            Actor myActor = new();
             try
             {
-                CurrentActor = Location.CurrentLoc.LocationActors.Where(x => x.ActorName == actorName).FirstOrDefault();
-                if (CurrentActor.ActorName == actorName)
+                myActor = Location.CurrentLoc.LocationActors.Where(x => x.ActorName == actorName).FirstOrDefault();
+                if (myActor.ActorName == actorName)
                 {
                     if (ResistantToKnockout == false)
                     {
                         IsKnockedOut = true;
-                        Console.WriteLine($"You knock {CurrentActor.ActorName} out.");
+                        Console.WriteLine($"You knock {myActor.ActorName} out.");
                     }
                     else
                     {
-                        Console.WriteLine($"{CurrentActor.ActorName} can not be knocked out.");
+                        Console.WriteLine($"{myActor.ActorName} can not be knocked out.");
                     }
+                }
+                else if (myActor.IsKnockedOut)
+                {
+                    Console.WriteLine($"{myActor.ActorName} is already unconscious");
                 }
                 else
                 {
                     IsKnockedOut = false;
-                    Console.WriteLine($"You fail to knock {CurrentActor.ActorName} out ");
+                    Console.WriteLine($"You fail to knock {myActor.ActorName} out ");
                 }
             }
             catch (NullReferenceException)
