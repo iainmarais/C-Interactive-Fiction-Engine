@@ -39,6 +39,24 @@ namespace InteractiveFiction_CLI
         public static Location TargetLoc { get; set; }
         public static bool IsConnected { get; set; }
         public bool LocIsConnected { get; set; }
+        public Scene GetCurrentScene()
+        {
+            //Test:
+            //Console.WriteLine("Location.GetCurrentScene entered");
+            Scene myScene = new();
+            myScene = myScene.QueryScene(myScene);
+            return myScene;
+        }
+        public Location GetIsCurrentLoc()
+        {
+            //Test:
+            //Console.WriteLine("Location.GetIsCurrentLoc entered");
+            Location myLoc = new();
+            Scene myScene = GetCurrentScene();
+            myLoc = myScene.Locations.Where(x => x.IsCurrentLocation).FirstOrDefault();
+            //Console.WriteLine($"Variable myLoc, value Name is set to {myLoc.Name}");
+            return myLoc;
+        }
 
         public Location GetIsCurrentLocation(Location Loc1)
         {

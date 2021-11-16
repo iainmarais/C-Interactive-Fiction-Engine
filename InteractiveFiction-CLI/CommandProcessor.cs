@@ -383,6 +383,32 @@ namespace InteractiveFiction_CLI
                                 break;
                         }
                     }
+                    else if (Word1 == "test")
+                    {
+                        if (Word2 == null)
+                        {
+                            Console.WriteLine("Test what?");
+                        }
+                        else if (Word2 == "query")
+                        {
+                            if (Word3 == "location")
+                            {
+                                Location myLoc = new();
+                                myLoc = myLoc.GetIsCurrentLoc();
+                                Console.WriteLine($"{myLoc.Name}");
+                            }
+                            else if (Word3 == "scene")
+                            {
+                                Scene myScene = new();
+                                myScene = myScene.QueryScene(myScene);
+                                Console.WriteLine($"{myScene.Name}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid test option");
+                        }
+                    }
                     //syscmd easter eggs
                     else if (Word1 == "noclip") // Nod to Quake :D
                     {
