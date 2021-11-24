@@ -23,18 +23,34 @@ namespace InteractiveFiction_CLI
     class Program
     {
         static void Main(string[] args)
-        {
+        {   //Main menu
+
             //Set up new scene object, and a new instance list of scenes,
             //then assign the scene based on the scene index returned by a menu function, to be created still.
             //Test: Console output of current scene name from scenes list
-            List<Scene> myScenes = new();
-            Scene myScene = new();
-            myScene = myScene.SetUpScene(1, myScenes);
-            Console.WriteLine(myScene.Name);
-
+            //needs further testing: 
+            //Menu myMenu = new();
+            //myMenu.MainMenu();
             Actor.Player myPlayer = new("Garrett", 20, false, false);
             myPlayer.PlayerInventory = new();
-            Logic.SetScene();
+            List<Scene> MyScenes = new();
+            Scene myScene = new();
+            int SceneIndex = 0;
+            bool ValidChoice = false;
+            while (ValidChoice != true)
+            {
+                SceneIndex = int.Parse(Console.ReadLine());
+                if (SceneIndex != 0)
+                {
+                    ValidChoice = true;
+                    break;
+                }
+                else
+                {
+                    ValidChoice = false;
+                }
+            }
+            myScene = myScene.SetUpScene(SceneIndex, MyScenes);
             CommandProcessor.Command myCommand = new();
             do
             {

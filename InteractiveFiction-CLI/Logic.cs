@@ -165,25 +165,27 @@ namespace InteractiveFiction_CLI
         public static void GoToNewLocation()
         {
 
-            Location currentLoc = GetCurrentLoc();
+            Location currentLoc = new();
+            currentLoc = GetCurrentLoc();
             Location targetLoc = GetNewLocation();
             Location newLoc = targetLoc;
             if (newLoc == targetLoc)
             {
                 Location.GetIsConnected(currentLoc, targetLoc);
                 //Handle the error condition gracefully, thus avoiding exceptions and crashes.
-                if (targetLoc == null || !(Location.GetIsConnected(currentLoc, targetLoc)))
+                if (targetLoc == null || !Location.GetIsConnected(currentLoc, targetLoc))
                 {
                     Console.WriteLine("You can't go that way");
                 }
                 else
                 {
-                    if (Location.IsConnected == false && targetLoc != null)
+                    if (!Location.IsConnected && targetLoc != null)
                     {
                         Console.WriteLine($"I know where the {targetLoc.Name} is, but how do I get there?");
                     }
                     else
                     {
+                        currentLoc.IsCurrentLocation = false;
                         currentLoc = targetLoc;
                         currentLoc.IsCurrentLocation = true;
                         Location.CurrentLoc = currentLoc;

@@ -170,7 +170,8 @@ namespace InteractiveFiction_CLI
             }
             public void GetContainerInventory(string containerName)
             {
-                Location currentLoc = Logic.GetCurrentLoc();
+                Location currentLoc = new();
+                currentLoc = currentLoc.GetIsCurrentLoc();
                 var myContainer = (Container)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
                 try
                 {
@@ -256,7 +257,8 @@ namespace InteractiveFiction_CLI
 
             public void GetSurfaceContainerObjects(string containerName)
             {
-                Location currentLoc = Logic.GetCurrentLoc();
+                Location currentLoc = new();
+                currentLoc = currentLoc.GetIsCurrentLoc();
                 var myContainer = (SurfaceContainer)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
                 try
                 {
@@ -303,9 +305,12 @@ namespace InteractiveFiction_CLI
             }
 
         }
+        //Test: Disable static loc handler
+        //Convert to objectified version
         public void PutObject(string containerName, string objectName)
         {
-            Location currentLoc = Logic.GetCurrentLoc();
+            Location currentLoc = new();
+            currentLoc = currentLoc.GetIsCurrentLoc();
             var myContainer = (Container)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
 
             try
@@ -322,7 +327,7 @@ namespace InteractiveFiction_CLI
                         Console.ForegroundColor = ConsoleColor.Gray;
                         myContainer.ContainerInventory.Add(myObject);
                     }
-                    else 
+                    else
                     {
                         Console.WriteLine($"You don't have the {myObject.Name} in your inventory");
                     }
@@ -358,7 +363,8 @@ namespace InteractiveFiction_CLI
         }
         public void GetObject(string containerName, string objectName)
         {
-            Location currentLoc = Logic.GetCurrentLoc();
+            Location currentLoc = new();
+            currentLoc = currentLoc.GetIsCurrentLoc();
             var myContainer = (Container)currentLoc.LocationInventory.Where(x => x.Name == containerName).FirstOrDefault();
             try
             {

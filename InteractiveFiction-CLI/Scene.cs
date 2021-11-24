@@ -67,8 +67,7 @@ namespace InteractiveFiction_CLI
             public new string Name = "My home";
             public new string SceneDescription = "My Old Quarter home\n\n" +
                                                  "A small house in the older part of the city, where the City Watch is not frequently seen.\n" +
-                                                 "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.\n" +
-                                                 "\n";
+                                                 "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.\n\n";
             //New stuff
             public static List<Location> SceneLocations = new()
             {
@@ -168,130 +167,376 @@ namespace InteractiveFiction_CLI
                 SceneLocations = sceneLocations;
             }
         }
-        //Same as Scene1, but not static.
-        public Scene SetUpScene(int SceneIndex, List<Scene> MyScenes)
+        public List<Scene> PopulateSceneList()
         {
-            Scene TestScene = new()
+            Scene MasterBedroom = new Scene()
             {
                 Name = "My Home",
                 SceneDescription = "My Old Quarter home\n\n" +
-                                                 "A small house in the older part of the city, where the City Watch is not frequently seen.\n" +
-                                                 "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.\n" +
-                                                 "\n",
+                                                "A small house in the older part of the city, where the City Watch is not frequently seen.\n" +
+                                                "The area itself is home to some of the seedier nobles and other unsavoury characters, many thieves among them.\n\n",
                 Locations = new()
                 {
-                    new Location("bedroom", "my master bedroom", LocID.LocBedroom, false, false, true, false, true, false, new List<Object>
+                    new Location()
                     {
-                        new Object("bed", "My bed"),
-                        new Object("computerdesk", "My computer workstation"),
-                        new Object.Container("fridge", "My bar fridge", new List<Object.PickuppableObject.Consumable>
+                        Name = "bedroom",
+                        LongName = "my master bedroom",
+                        HasExitN = false,
+                        HasExitS = false,
+                        HasExitE = true,
+                        EastDoorway = new()
                         {
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable.Potion("beer","Half-litre can of beer"),
-                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
-                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
-                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
-                            new Object.PickuppableObject.Consumable("steak","Sirloin steak"),
-                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
-                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
-                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
-                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
-                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
-                            new Object.PickuppableObject.Consumable("sodawater","Bottle of soda water"),
-                        }),
-                        new Object.Container("cupboard", "My cupboard", new List<Object>
-                        {
-                            new Object.PickuppableObject("clothes", "Some of my clothes"),
-                            new Object.PickuppableObject("guitar", "My guitar"),
-                            new Object.PickuppableObject("pcparts", "A box of old PC hardware"),
-                            new Object.PickuppableObject("cdstack", "Stack of CDs")
-                        }),
-                    }, true),
-                    new Location("lounge", "the lounge", LocID.LocLounge, false, true, false, true, false, false, new List<Object>
-                    {
-                        new Object("table", "Lounge table"),
-                        new Object("chair", "Lounge chair"),
-                        new Object("chair", "Lounge chair"),
-                        new Object("chair", "Lounge chair"),
-                    }, false),
-                    new Location("attic", "the attic", LocID.LocAttic, false, false, false, false, false, true, new List<Object>
-                    {
-                        new Object.Container("chest", "Wooden chest", new List<Object>
-                        {
-                            new Object.PickuppableObject.Weapon("blackjack", "Blackjack"),
-                            new Object.PickuppableObject.Weapon("bow","High-powered spring-lever bow"),
-                            new Object.PickuppableObject.Weapon("sword","Long sword"),
-                            new Object.PickuppableObject.PlayerTool("squareLockpick", "Square-tooth lockpick"),
-                            new Object.PickuppableObject.PlayerTool("triangleLockpick","Triange-tooth lockpick"),
-                        })
-                    }, false),
-                    new Location("livingroom", "the living room", LocID.LocLivingroom, true, false, false, false, false, false, new List<Object>
-                    {
-                    new Object.SurfaceContainer("wallunit","Modular wall unit", new List<Object>
-                        {
-                        new Object("soundsystem", "High fidelity sound system"),
-                        new Object("speakerL", "Left speaker"),
-                        new Object("speakerR", "Right speaker"),
-                        new Object("hdtv", "High-definition Television"),
+                            Direction = "East",
+                            PortalName = "doorway",
+                            IsAccessible = true,
+                            HasDoor = true,
+                            door = new()
+                            {
+                                DoorName = "East door",
+                                IsLocked = false,
+                                IsClosed = true,
+                            },
                         },
-                        new List<Object.PickuppableObject>
+                        HasExitW = false,
+                        HasExitUp = true,
+                        StairwayUp = new()
                         {
+                            IsAccessible = true,
+                            HasDoor = false,
+                            Direction = "Up",
+                            PortalName = "Stairway",
+                        },
+                        HasExitDown = false,
+                        LocationInventory = new()
+                        {
+                            new Object("bed", "My bed"),
+                            new Object("computerdesk", "My computer workstation"),
+                            new Object.Container("fridge", "My bar fridge", new List<Object.PickuppableObject.Consumable>
+                                {
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable.Potion("beer", "Half-litre can of beer"),
+                                    new Object.PickuppableObject.Consumable("steak", "Sirloin steak"),
+                                    new Object.PickuppableObject.Consumable("steak", "Sirloin steak"),
+                                    new Object.PickuppableObject.Consumable("steak", "Sirloin steak"),
+                                    new Object.PickuppableObject.Consumable("steak", "Sirloin steak"),
+                                    new Object.PickuppableObject.Consumable("sodawater", "Bottle of soda water"),
+                                    new Object.PickuppableObject.Consumable("sodawater", "Bottle of soda water"),
+                                    new Object.PickuppableObject.Consumable("sodawater", "Bottle of soda water"),
+                                    new Object.PickuppableObject.Consumable("sodawater", "Bottle of soda water"),
+                                    new Object.PickuppableObject.Consumable("sodawater", "Bottle of soda water"),
+                                    new Object.PickuppableObject.Consumable("sodawater", "Bottle of soda water"),
+                                }),
+                            new Object.Container("cupboard", "My cupboard", new List<Object>
+                                {
+                                    new Object.PickuppableObject("clothes", "Some of my clothes"),
+                                    new Object.PickuppableObject("guitar", "My guitar"),
+                                    new Object.PickuppableObject("pcparts", "A box of old PC hardware"),
+                                    new Object.PickuppableObject("cdstack", "Stack of CDs")
+                                }),
+                        },
+                        IsCurrentLocation = true,
+                        AdjacentLocs = new() { "lounge", "attic" }
+                    },
+                    new Location()
+                    {
+                        Name = "lounge",
+                        LongName = "the lounge",
+                        HasExitN = false,
+                        HasExitS = true,
+                        HasExitE = false,
+                        HasExitW = true,
+                        HasExitUp = false,
+                        HasExitDown = false,
+                        SouthDoorway = new()
+                        {
+                            PortalName = "doorway",
+                            Direction = "South",
+                            HasDoor = true,
+                            door = new()
+                            {
+                                DoorName = "door",
+                                IsClosed = true,
+                                IsLocked = false,
+                            }
+                        },
+                        WestDoorway = new()
+                        {
+                            PortalName = "doorway",
+                            Direction = "West",
+                            HasDoor = true,
+                            door = new()
+                            {
+                                DoorName = "door",
+                                IsClosed = true,
+                                IsLocked = false,
+                            }
+                        },
+                        LocationInventory = new()
+                        {
+                            new Object("table", "Lounge table"),
+                            new Object("chair", "Lounge chair"),
+                            new Object("chair", "Lounge chair"),
+                            new Object("chair", "Lounge chair"),
+                        },
+                        AdjacentLocs = new() { "bedroom", "livingroom" }
+                    },
+                    new Location()
+                    {
+                        Name = "attic",
+                        LongName = "the attic",
+                        HasExitN = false,
+                        HasExitS = false,
+                        HasExitE = false,
+                        HasExitW = false,
+                        HasExitUp = false,
+                        HasExitDown = true,
+                        LocationInventory = new()
+                        {
+                            new Object.Container("chest", "Wooden chest", new List<Object>
+                                {
+                                    new Object.PickuppableObject.Weapon("blackjack", "Blackjack"),
+                                    new Object.PickuppableObject.Weapon("bow", "High-powered spring-lever bow"),
+                                    new Object.PickuppableObject.Weapon("sword", "Long sword"),
+                                    new Object.PickuppableObject.PlayerTool("squareLockpick", "Square-tooth lockpick"),
+                                    new Object.PickuppableObject.PlayerTool("triangleLockpick", "Triange-tooth lockpick"),
+                                })
+                        },
+                        AdjacentLocs = new() { "bedroom" }
+                    },
+                    new Location()
+                    {
+                        Name = "livingroom",
+                        LongName = "the living room",
+                        HasExitN = true,
+                        HasExitS = false,
+                        HasExitE = false,
+                        HasExitW = false,
+                        HasExitUp = false,
+                        HasExitDown = false,
+                        LocationInventory = new()
+                        {
+                            new Object.SurfaceContainer("wallunit", "Modular wall unit", new List<Object>
+                                {
+                                    new Object("soundsystem", "High fidelity sound system"),
+                                    new Object("speakerL", "Left speaker"),
+                                    new Object("speakerR", "Right speaker"),
+                                    new Object("hdtv", "High-definition Television"),
+                                },
+                       new List<Object.PickuppableObject>
+                       {
                             new Object.PickuppableObject("whiskyGlass", "Whisky glass"),
                             new Object.PickuppableObject("whiskyGlass", "Whisky glass"),
                             new Object.PickuppableObject("beerGlass", "Beer glass"),
                             new Object.PickuppableObject("beerGlass", "Beer glass"),
                             new Object.PickuppableObject("emptyWineBottle", "Empty wine bottle"),
-                        },
-                        new List<Object.PickuppableObject.Consumable>
-                        {
+                       },
+                       new List<Object.PickuppableObject.Consumable>
+                       {
                             new Object.PickuppableObject.Consumable("whisky", "Scotch whisky"),
-                        }),
+                       }),
 
-                    new Object.Container("boozecabinet", "Drinks cabinet", new List<Object.PickuppableObject.Consumable>
-                    {
-                        new Object.PickuppableObject.Consumable("liqueur","Cream liqueur"),
-                        new Object.PickuppableObject.Consumable("whisky","Vintage Scotch whisky"),
-                        new Object.PickuppableObject.Consumable("goodWine","Collectors' edition vintage red wine"),
-                        new Object.PickuppableObject.Consumable("biltong","Beef biltong"),
-                    }),
-                }, false),
+                            new Object.Container("boozecabinet", "Drinks cabinet", new List<Object.PickuppableObject.Consumable>
+                                {
+                                    new Object.PickuppableObject.Consumable("liqueur", "Cream liqueur"),
+                                    new Object.PickuppableObject.Consumable("whisky", "Vintage Scotch whisky"),
+                                    new Object.PickuppableObject.Consumable("goodWine", "Collectors' edition vintage red wine"),
+                                    new Object.PickuppableObject.Consumable("biltong", "Beef biltong"),
+                                }),
+                        },
+                        AdjacentLocs = new() { "lounge" }
+                    },
                 },
-                IsCurrentScene = true,
             };
-            MyScenes.Add(TestScene);
+            Scene EasternCityStreets = new Scene()
+            {
+                Name = "Eastern city streets",
+                SceneDescription = "The eastern city streets.\n\n " +
+         "The eastern part of the city streets, where nobles' private guards and City Watch are not often seen.\n" +
+         "These streets are also home to the criminal underworld.\n\n",
+                Locations = new()
+                {
+                    new Location()
+                    {
+                        Name = "courtyard",
+                        LongName = "Front courtyard",
+                        HasExitN = false,
+                        HasExitS = false,
+                        HasExitE = true,
+                        HasExitW = false,
+                        HasExitUp = false,
+                        HasExitDown = false,
+                        LocationInventory = new()
+                        {
+                            new Object("table", "Garden table"),
+                            new Object("bench", "Garden bench"),
+                            new Object("bench", "Garden bench"),
+
+                        },
+                        AdjacentLocs = new() { "streets" },
+                        IsCurrentLocation = true,
+                    },
+                    new Location()
+                    {
+                        Name = "streetsN",
+                        LongName = "Eastern city streets (North part)",
+                        HasExitN = false,
+                        HasExitS = true,
+                        HasExitE = false,
+                        HasExitW = false,
+                        HasExitUp = false,
+                        HasExitDown = false,
+                        LocationActors = new()
+                        {
+                            new Actor.UnarmedCitizen(),
+                            new Actor.UnarmedCitizen(),
+                            new Actor.Guard(),
+                        },
+                        AdjacentLocs = new() { "streets" },
+                    },
+                    new Location()
+                    {
+                        Name = "streets",
+                        LongName = "Eastern city streets (Central part)",
+                        HasExitN = true,
+                        HasExitS = true,
+                        HasExitE = false,
+                        HasExitW = true,
+                        HasExitUp = false,
+                        HasExitDown = false,
+
+                        LocationActors = new()
+                        {
+                            new Actor.Guard() { ActorName = "Bob", ActorClass = EActorClass.Guard, ActorGender = EActorGender.Male },
+                            new Actor.Guard() { ActorName = "Benny", ActorClass = EActorClass.Guard, ActorGender = EActorGender.Male },
+                            new Actor.Guard() { ActorName = "Alice", ActorClass = EActorClass.Guard, ActorGender = EActorGender.Female },
+                            new Actor.UnarmedCitizen() { ActorName = "Richard", ActorClass = EActorClass.Noble, ActorGender = EActorGender.Male },
+                            new Actor.UnarmedCitizen() { ActorName = "Angela", ActorClass = EActorClass.Noble, ActorGender = EActorGender.Female },
+
+                        },
+                        AdjacentLocs = new() { "streetsN", "streetsS", "courtyard" },
+                    },
+                    new Location()
+                    {
+                        Name = "streetsS",
+                        LongName = "Eastern city streets (South part)",
+                        HasExitN = true,
+                        HasExitS = false,
+                        HasExitE = false,
+                        HasExitW = false,
+                        HasExitUp = false,
+                        HasExitDown = false,
+
+                        LocationActors = new()
+                        {
+                            new Actor.UnarmedCitizen(),
+                            new Actor.UnarmedCitizen(),
+                            new Actor.Guard(),
+                        },
+                        AdjacentLocs = new() { "streets" },
+                    },
+                }
+            };
+            Scene HammeriteChurch = new Scene()
+            {
+                Name = "Eastern Streets - Hammerite Church\n\n",
+                SceneDescription = "The local Hammerite church on the Eastern side of the city\n" +
+                "Security in and around the church is extremely high, and the Hammerite guards on patrol have no love of criminals.\n" +
+                "They are known to attack first and ask questions later.\n" +
+                "It's no surprise though, as Hammerite churches are rumoured to be full of priceless valuables.\n\n",
+                Locations = new()
+                {
+                    new Location() { Name = "courtyard", LongName = "Church Courtyard", AdjacentLocs = new() { "entrancehall" }, HasExitN = true, IsCurrentLocation = true },
+                    new Location() { Name = "entrancehall", LongName = "Church - Entrance hall", AdjacentLocs = new() { "westwing", "eastwing", "courtyard", "altarwing" }, HasExitN = true, HasExitS = true, HasExitE = true, HasExitW = true, },
+                    new Location() { Name = "altarwing", LongName = "Church - Altar wing", AdjacentLocs = new() { "entrancehall" }, HasExitS = true },
+                    new Location() { Name = "westwing", LongName = "Church - West wing", AdjacentLocs = new() { "entrancehall" }, HasExitE = true },
+                    new Location() { Name = "eastwing", LongName = "Church - East wing", AdjacentLocs = new() { "entrancehall" }, HasExitW = true },
+                }
+            };
+            List<Scene> MyScenes = new();
+            MyScenes.Add(MasterBedroom);
+            MyScenes.Add(EasternCityStreets);
+            MyScenes.Add(HammeriteChurch);
             ActiveScenes = MyScenes;
-            Scene StartScene = MyScenes[SceneIndex - 1];
-            Console.WriteLine($"{MyScenes[SceneIndex - 1].Name} instantiated.");
-            return StartScene;
+            return ActiveScenes;
         }
-        public Scene QueryScene(Scene MyScene)
+        public Scene SetUpScene(int SceneIndex)
         {
-            //Test:
-            //Console.WriteLine("Scene.QueryScene entered");
-            MyScene = ActiveScenes.Where(x => x.IsCurrentScene).FirstOrDefault();
-            //Test: 
-            //Console.WriteLine($"Variable MyScene, value Name is set to: {MyScene.Name}");
+            Scene MyScene = new();
+            List<Scene> MyScenes = new();
+            MyScenes = PopulateSceneList();
+            MyScene = MyScenes[SceneIndex - 1];
+            MyScene.IsCurrentScene = true;
+            return MyScene;
+        }
+        //Same as Scene1, but not static.
+        public Scene SetUpScene(int SceneIndex, List<Scene> MyScenes)
+        {
+            try
+            {
+                MyScenes = new();
+                MyScenes = PopulateSceneList();
+                Console.WriteLine($"{MyScenes[SceneIndex - 1].Name} \n\n {MyScenes[SceneIndex - 1].SceneDescription}");
+                //Using a static variable of same datatype to store/forward this instance.
+                ActiveScenes = MyScenes;
+                ActiveScenes[SceneIndex - 1].IsCurrentScene = true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Invalid scene or argument is out of range");
+            }
+            if (ActiveScenes != null)
+                return ActiveScenes[SceneIndex - 1];
+            else
+                return null;
+        }
+        //This is a test command to get the current scene
+        public Scene QueryScene(Scene MyScene, List<Scene> MyScenes)
+        {
+            MyScenes = QuerySceneList();
+            try
+            {
+                MyScene = MyScenes.Where(x => x.IsCurrentScene).FirstOrDefault();
+                if (MyScene == null)
+                {
+                    Console.WriteLine("MyScene is null or unset");
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("Scene list is null or unset.");
+            }
             return MyScene;
         }
         public void CreateScene()
         {
             //Do something
         }
-        public void ChangeScene()
+        //Change the active scene on trigger to the next one in the list
+        public Scene ChangeSceneNext()
         {
-            //Do something
+            int SceneIndex = ActiveScenes.FindIndex(x => x.IsCurrentScene == true);
+            Scene NewScene = ActiveScenes[SceneIndex + 1];
+            return NewScene;
+        }
+        //Change the active scene on trigger to the previous one in the list
+        public Scene ChangeScenePrevious()
+        {
+            int SceneIndex = ActiveScenes.FindIndex(x => x.IsCurrentScene == true);
+            Scene NewScene = ActiveScenes[SceneIndex - 1];
+            return NewScene;
+        }
+        public List<Scene> QuerySceneList()
+        {
+            return ActiveScenes;
         }
     }
-    //For testing - will be left here until it works, then move to logic.cs
-
-
 }
 

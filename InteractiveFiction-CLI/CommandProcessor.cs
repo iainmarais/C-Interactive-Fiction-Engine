@@ -13,6 +13,7 @@ Think classic Zork, where one entered commands and read the output.
 This project will be entirely c# based.
 */
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InteractiveFiction_CLI
@@ -273,7 +274,10 @@ namespace InteractiveFiction_CLI
                                 string myWord2 = WordList.HelperWords.Where(x => x.Contains(Word2)).FirstOrDefault();
                                 if (myWord2 == "around")
                                 {
-                                    Logic.GetLocationInventory();
+                                    Location CurrentLoc = new();
+                                    CurrentLoc.GetLocationObjects();
+                                    CurrentLoc.GetLocationActors();
+                                    CurrentLoc.GetAvailableExits();
                                 }
                                 else if (myWord2 == "in")
                                 {
@@ -317,13 +321,66 @@ namespace InteractiveFiction_CLI
                         }
                         else if (myWord == "go")
                         {
+                            Location currentLoc = new();
+                            currentLoc = currentLoc.GetIsCurrentLoc();
                             if (Word2 == null)
                             {
                                 Console.WriteLine("Go where?");
                             }
+                            else if (Word2 == "north")
+                            {
+                                if (currentLoc.HasExitN)
+                                {
+                                    Location NewLoc = new();
+                                    NewLoc = NewLoc.ChangeLoc(NewLoc.QueryLocByDir(Word2).Name);
+                                }
+                            }
+                            else if (Word2 == "south")
+                            {
+                                if (currentLoc.HasExitS)
+                                {
+                                    Location NewLoc = new();
+                                    NewLoc = NewLoc.ChangeLoc(NewLoc.QueryLocByDir(Word2).Name);
+                                }
+                            }
+                            else if (Word2 == "east")
+                            {
+                                if (currentLoc.HasExitE)
+                                {
+                                    Location NewLoc = new();
+                                    NewLoc = NewLoc.ChangeLoc(NewLoc.QueryLocByDir(Word2).Name);
+                                }
+                            }
+                            else if (Word2 == "west")
+                            {
+                                if (currentLoc.HasExitW)
+                                {
+                                    Location NewLoc = new();
+                                    NewLoc = NewLoc.ChangeLoc(NewLoc.QueryLocByDir(Word2).Name);
+                                }
+                            }
+                            else if (Word2 == "down")
+                            {
+                                if (currentLoc.HasExitDown)
+                                {
+                                    Location NewLoc = new();
+                                    NewLoc = NewLoc.ChangeLoc(NewLoc.QueryLocByDir(Word2).Name);
+                                }
+                            }
+                            else if (Word2 == "up")
+                            {
+                                if (currentLoc.HasExitUp)
+                                {
+                                    Location NewLoc = new();
+                                    NewLoc = NewLoc.ChangeLoc(NewLoc.QueryLocByDir(Word2).Name);
+                                }
+                            }
+                            //Direct loc access: 
                             else if (Word2 != null)
                             {
-                                Logic.GoToNewLocation();
+                                Location NewLoc = new();
+                                NewLoc = NewLoc.ChangeLoc(Word2);
+                                //Logic.GoToNewLocation();
                             }
                         }
 
@@ -383,30 +440,70 @@ namespace InteractiveFiction_CLI
                                 break;
                         }
                     }
+                    //Test commands, useful for directly setting a scene or loc to a specified one
                     else if (Word1 == "test")
                     {
                         if (Word2 == null)
                         {
                             Console.WriteLine("Test what?");
                         }
-                        else if (Word2 == "query")
+                        if (Word2 == "query")
                         {
+                            if (Word3 == "objects")
+                            {
+                                Location myLoc = new();
+                                myLoc.GetLocationObjects();
+                            }
                             if (Word3 == "location")
                             {
                                 Location myLoc = new();
                                 myLoc = myLoc.GetIsCurrentLoc();
-                                Console.WriteLine($"{myLoc.Name}");
+                                Console.WriteLine($"myLoc is: {myLoc.Name}");
                             }
                             else if (Word3 == "scene")
                             {
                                 Scene myScene = new();
-                                myScene = myScene.QueryScene(myScene);
-                                Console.WriteLine($"{myScene.Name}");
+                                List<Scene> MyScenes = new();
+                                myScene = myScene.QueryScene(myScene, MyScenes);
+                                Console.WriteLine($"myScene is set to: {myScene.Name}");
+                            }
+                            if (Word3 == null)
+                            {
+                                Console.WriteLine("Please specify what to query.");
                             }
                         }
-                        else
+                        if (Word2 == "set")
                         {
-                            Console.WriteLine("Invalid test option");
+                            if (Word3 == "location")
+                            {
+                                if (Word4 == null)
+                                {
+                                    Console.WriteLine("Please specify a location name");
+                                }
+                                else
+                                {
+                                    Location myLoc = new();
+                                    myLoc.ChangeLoc();
+                                }
+                            }
+                            if (Word3 == "scene")
+                            {
+                                if (Word4 == null)
+                                {
+                                    Console.WriteLine("Please specify a scene number");
+                                }
+                                else
+                                {
+                                    int SceneIndex = int.Parse(Word4);
+                                    Scene MyScene = new();
+                                    List<Scene> MyScenes = new();
+                                    MyScene.SetUpScene(SceneIndex, MyScenes);
+                                }
+                            }
+                            if (Word3 == null)
+                            {
+                                Console.WriteLine("Please specify what to set");
+                            }
                         }
                     }
                     //syscmd easter eggs
