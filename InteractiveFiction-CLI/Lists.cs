@@ -38,7 +38,7 @@ namespace InteractiveFiction_CLI
 
     public class WordList
     {   //List of action words for first stage of Command processor
-        public static List<string> Actions = new() { "where", "look", "get", "put", "open", "unlock", "steal", "attack", "use", "jump", "climb", "move", "take", "lock", "pickpocket", "lockpick", "go", };
+        public static List<string> Actions = new() { "knock", "kill", "where", "look", "get", "put", "open", "unlock", "steal", "attack", "use", "jump", "climb", "move", "take", "lock", "pickpocket", "lockpick", "go", };
         public static List<string> StaticObjectNames = new() { "door", "chair", "torch", };
         public static List<string> ContainerNames = new() { "chest", "drawer", "fridge", "cupboard", "drawer", };
         public static List<string> SurfaceContainerNames = new() { "table", "desk", "wallunit" };

@@ -35,7 +35,10 @@ namespace InteractiveFiction_CLI
             myPlayer.PlayerInventory = new();
             List<Scene> MyScenes = new();
             Scene myScene = new();
+            MyScenes = myScene.PopulateSceneList();
             int SceneIndex = 0;
+            Console.WriteLine($"Current available scenes are:\n\n1: {MyScenes[0].Name}\n2: {MyScenes[1].Name}\n3: {MyScenes[2].Name}\n");
+            Console.Write("Choice: ");
             bool ValidChoice = false;
             while (ValidChoice != true)
             {

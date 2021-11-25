@@ -300,6 +300,7 @@ namespace InteractiveFiction_CLI
                     }
                 }
             }
+            Console.Write("\n");
         }
         public Location GetIsCurrentLocation(Location Loc1)
         {
@@ -322,7 +323,7 @@ namespace InteractiveFiction_CLI
             {
                 if (myLoc.LocationInventory != null)
                 {
-                    Console.WriteLine($"Inside {myLoc.LongName} I can see: ");
+                    Console.WriteLine($"Inside {myLoc.LongName} I can see:\n");
                     for (int index = 0; index < myLoc.LocationInventory.Count; index++)
                     {
                         if (myLoc.LocationInventory.Count > 1 && index < myLoc.LocationInventory.Count)
@@ -335,6 +336,10 @@ namespace InteractiveFiction_CLI
                             {
                                 Console.Write($"{myLoc.LocationInventory[index].LongName}\n\n");
                             }
+                        }
+                        else
+                        {
+                            Console.Write($"{myLoc.LocationInventory[index].LongName}\n\n");
                         }
                     }
                 }

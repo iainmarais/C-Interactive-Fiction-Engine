@@ -44,14 +44,16 @@ namespace InteractiveFiction_CLI
         public void KnockOutActor(string actorName)
         {
             Actor myActor = new();
+            Location CurrentLoc = new();
+            CurrentLoc = CurrentLoc.GetIsCurrentLoc();
             try
             {
-                myActor = Location.CurrentLoc.LocationActors.Where(x => x.ActorName == actorName).FirstOrDefault();
-                if (myActor.ActorName == actorName)
+                myActor = CurrentLoc.LocationActors.Where(x => x.ActorName == actorName).FirstOrDefault();
+                if (myActor.ActorName == actorName && myActor.IsKnockedOut == false)
                 {
                     if (ResistantToKnockout == false)
                     {
-                        IsKnockedOut = true;
+                        myActor.IsKnockedOut = true;
                         Console.WriteLine($"You knock {myActor.ActorName} out.");
                     }
                     else
@@ -81,11 +83,14 @@ namespace InteractiveFiction_CLI
         //no point in attacking something already dead.
         public void AttackActor(string actorName, Object.PickuppableObject.Weapon myWeapon)
         {
+            Location CurrentLoc = new();
+            CurrentLoc = CurrentLoc.GetIsCurrentLoc();
+            Actor CurrentActor = new();
             try
             {
                 Random DiceRoll = new();
                 int Damage = DiceRoll.Next(myWeapon.MinDmg, myWeapon.MaxDmg);
-                CurrentActor = Location.CurrentLoc.LocationActors.Where(x => x.ActorName == actorName).FirstOrDefault();
+                CurrentActor = CurrentLoc.LocationActors.Where(x => x.ActorName == actorName).FirstOrDefault();
                 do
                 {
                     CurrentActor.HitPoints -= Damage;

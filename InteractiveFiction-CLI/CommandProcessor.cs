@@ -134,7 +134,42 @@ namespace InteractiveFiction_CLI
                     {
                         if (myWord == "where")
                         {
-                            Logic.GetCurrentLocation();
+                            Location CurrentLoc = new();
+                            CurrentLoc = CurrentLoc.GetIsCurrentLoc();
+                        }
+                        else if (myWord == "knock")
+                        {
+                            try
+                            {
+                                string myWord2 = WordList.HelperWords.Where(x => x.Contains(Word2)).FirstOrDefault();
+
+                                if (Word2 != myWord2 || Word2 == null)
+                                {
+                                    Console.WriteLine("Knock what?");
+                                }
+                                else if (Word2 == myWord2)
+                                {
+                                    if (myWord2 == "out")
+                                    {
+                                        Location MyLoc = new();
+                                        MyLoc = MyLoc.GetIsCurrentLoc();
+                                        if (Word3 == null)
+                                        {
+                                            Console.WriteLine("Knock out who?");
+                                        }
+                                        else if (Word3 != null)
+                                        {
+                                            Actor TargetActor = new();
+                                            TargetActor = MyLoc.LocationActors.Where(x => x.ActorName == Word3).FirstOrDefault();
+                                            TargetActor.KnockOutActor(Word3);
+                                        }
+                                    }
+                                }
+                            }
+                            catch (ArgumentNullException)
+                            {
+                                Console.WriteLine("Helper word unrecognised, please try again.");
+                            }
                         }
                         else if (myWord == "put")
                         {
@@ -391,6 +426,7 @@ namespace InteractiveFiction_CLI
                         SysCmds.ActionAbout();
                         ValidCmd = true;
                     }
+
                     else if (Word1 == "quit") //Syscmd: quit : exit program
                     {
                         SysCmds.ActionQuit();
@@ -491,6 +527,18 @@ namespace InteractiveFiction_CLI
                                 if (Word4 == null)
                                 {
                                     Console.WriteLine("Please specify a scene number");
+                                }
+                                else if (Word4 == "next")
+                                {
+                                    Scene MyScene = new();
+                                    List<Scene> MyScenes = new();
+                                    MyScene = MyScene.ChangeSceneNext();
+                                }
+                                else if (Word4 == "previous")
+                                {
+                                    Scene MyScene = new();
+                                    List<Scene> MyScenes = new();
+                                    MyScene = MyScene.ChangeScenePrevious();
                                 }
                                 else
                                 {

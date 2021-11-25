@@ -23,14 +23,16 @@ using System.Threading.Tasks;
 
 namespace InteractiveFiction_CLI
 {
-
     //Top level class for scenes. Scenes can contain multiple locations. 
     //Scene 1 is the starting scene for this world.
     //Everything inside it is instantiated before the command processor is called.
     public class Scene
     {
         public static Scene CurrentScene { get; set; }
+        public static Scene LastScene { get; set; }
         public bool IsCurrentScene { get; set; }
+        public bool IsPreviousScene { get; set; }
+        public bool IsNextScene { get; set; }
         public static Scene NewScene { get; set; }
         public List<Scene> Scenes { get; set; }
         //Using a static list of scenes here as a holder for any active scenes.
@@ -159,7 +161,6 @@ namespace InteractiveFiction_CLI
             //End new stuff
             public Scene1()
             {
-
             }
             public Scene1(string sceneName, List<Location> sceneLocations)
             {
@@ -169,7 +170,7 @@ namespace InteractiveFiction_CLI
         }
         public List<Scene> PopulateSceneList()
         {
-            Scene MasterBedroom = new Scene()
+            Scene MyHome = new()
             {
                 Name = "My Home",
                 SceneDescription = "My Old Quarter home\n\n" +
@@ -181,8 +182,6 @@ namespace InteractiveFiction_CLI
                     {
                         Name = "bedroom",
                         LongName = "my master bedroom",
-                        HasExitN = false,
-                        HasExitS = false,
                         HasExitE = true,
                         EastDoorway = new()
                         {
@@ -197,7 +196,6 @@ namespace InteractiveFiction_CLI
                                 IsClosed = true,
                             },
                         },
-                        HasExitW = false,
                         HasExitUp = true,
                         StairwayUp = new()
                         {
@@ -206,7 +204,6 @@ namespace InteractiveFiction_CLI
                             Direction = "Up",
                             PortalName = "Stairway",
                         },
-                        HasExitDown = false,
                         LocationInventory = new()
                         {
                             new Object("bed", "My bed"),
@@ -249,12 +246,8 @@ namespace InteractiveFiction_CLI
                     {
                         Name = "lounge",
                         LongName = "the lounge",
-                        HasExitN = false,
                         HasExitS = true,
-                        HasExitE = false,
                         HasExitW = true,
-                        HasExitUp = false,
-                        HasExitDown = false,
                         SouthDoorway = new()
                         {
                             PortalName = "doorway",
@@ -292,11 +285,6 @@ namespace InteractiveFiction_CLI
                     {
                         Name = "attic",
                         LongName = "the attic",
-                        HasExitN = false,
-                        HasExitS = false,
-                        HasExitE = false,
-                        HasExitW = false,
-                        HasExitUp = false,
                         HasExitDown = true,
                         LocationInventory = new()
                         {
@@ -316,11 +304,6 @@ namespace InteractiveFiction_CLI
                         Name = "livingroom",
                         LongName = "the living room",
                         HasExitN = true,
-                        HasExitS = false,
-                        HasExitE = false,
-                        HasExitW = false,
-                        HasExitUp = false,
-                        HasExitDown = false,
                         LocationInventory = new()
                         {
                             new Object.SurfaceContainer("wallunit", "Modular wall unit", new List<Object>
@@ -355,10 +338,10 @@ namespace InteractiveFiction_CLI
                     },
                 },
             };
-            Scene EasternCityStreets = new Scene()
+            Scene EasternCityStreets = new()
             {
                 Name = "Eastern city streets",
-                SceneDescription = "The eastern city streets.\n\n " +
+                SceneDescription = "The eastern city streets.\n\n" +
          "The eastern part of the city streets, where nobles' private guards and City Watch are not often seen.\n" +
          "These streets are also home to the criminal underworld.\n\n",
                 Locations = new()
@@ -367,11 +350,7 @@ namespace InteractiveFiction_CLI
                     {
                         Name = "courtyard",
                         LongName = "Front courtyard",
-                        HasExitN = false,
-                        HasExitS = false,
                         HasExitE = true,
-                        HasExitW = false,
-                        HasExitUp = false,
                         HasExitDown = false,
                         LocationInventory = new()
                         {
@@ -407,11 +386,7 @@ namespace InteractiveFiction_CLI
                         LongName = "Eastern city streets (Central part)",
                         HasExitN = true,
                         HasExitS = true,
-                        HasExitE = false,
                         HasExitW = true,
-                        HasExitUp = false,
-                        HasExitDown = false,
-
                         LocationActors = new()
                         {
                             new Actor.Guard() { ActorName = "Bob", ActorClass = EActorClass.Guard, ActorGender = EActorGender.Male },
@@ -428,12 +403,6 @@ namespace InteractiveFiction_CLI
                         Name = "streetsS",
                         LongName = "Eastern city streets (South part)",
                         HasExitN = true,
-                        HasExitS = false,
-                        HasExitE = false,
-                        HasExitW = false,
-                        HasExitUp = false,
-                        HasExitDown = false,
-
                         LocationActors = new()
                         {
                             new Actor.UnarmedCitizen(),
@@ -444,7 +413,7 @@ namespace InteractiveFiction_CLI
                     },
                 }
             };
-            Scene HammeriteChurch = new Scene()
+            Scene HammeriteChurch = new()
             {
                 Name = "Eastern Streets - Hammerite Church\n\n",
                 SceneDescription = "The local Hammerite church on the Eastern side of the city\n" +
@@ -453,7 +422,14 @@ namespace InteractiveFiction_CLI
                 "It's no surprise though, as Hammerite churches are rumoured to be full of priceless valuables.\n\n",
                 Locations = new()
                 {
-                    new Location() { Name = "courtyard", LongName = "Church Courtyard", AdjacentLocs = new() { "entrancehall" }, HasExitN = true, IsCurrentLocation = true },
+                    new Location()
+                    {
+                        Name = "courtyard",
+                        LongName = "Church Courtyard",
+                        AdjacentLocs = new() { "entrancehall" },
+                        HasExitN = true,
+                        IsCurrentLocation = true
+                    },
                     new Location() { Name = "entrancehall", LongName = "Church - Entrance hall", AdjacentLocs = new() { "westwing", "eastwing", "courtyard", "altarwing" }, HasExitN = true, HasExitS = true, HasExitE = true, HasExitW = true, },
                     new Location() { Name = "altarwing", LongName = "Church - Altar wing", AdjacentLocs = new() { "entrancehall" }, HasExitS = true },
                     new Location() { Name = "westwing", LongName = "Church - West wing", AdjacentLocs = new() { "entrancehall" }, HasExitE = true },
@@ -461,11 +437,12 @@ namespace InteractiveFiction_CLI
                 }
             };
             List<Scene> MyScenes = new();
-            MyScenes.Add(MasterBedroom);
+            MyScenes.Add(MyHome);
             MyScenes.Add(EasternCityStreets);
             MyScenes.Add(HammeriteChurch);
-            ActiveScenes = MyScenes;
-            return ActiveScenes;
+            return MyScenes;
+            //ActiveScenes = MyScenes;
+            //return ActiveScenes;
         }
         public Scene SetUpScene(int SceneIndex)
         {
@@ -476,26 +453,41 @@ namespace InteractiveFiction_CLI
             MyScene.IsCurrentScene = true;
             return MyScene;
         }
-        //Same as Scene1, but not static.
+        //This is the Scene instantiator, which calls the populate scene list func to get its information.
+        //This function is responsible for setting up the scene, also when changing scenes.
+        public Scene SetUpSceneByName(string SceneName)
+        {
+            List<Scene> MyScenes = ActiveScenes;
+            Scene MyScene = ActiveScenes.Where(x => x.Name == SceneName).FirstOrDefault();
+            MyScene.IsCurrentScene = true;
+            Console.WriteLine($"{MyScene.Name}\n\n{MyScene.SceneDescription}");
+            return MyScene;
+        }
+
         public Scene SetUpScene(int SceneIndex, List<Scene> MyScenes)
         {
             try
             {
-                MyScenes = new();
                 MyScenes = PopulateSceneList();
-                Console.WriteLine($"{MyScenes[SceneIndex - 1].Name} \n\n {MyScenes[SceneIndex - 1].SceneDescription}");
+                Console.WriteLine($"{MyScenes[SceneIndex - 1].Name} \n\n{MyScenes[SceneIndex - 1].SceneDescription}");
                 //Using a static variable of same datatype to store/forward this instance.
                 ActiveScenes = MyScenes;
                 ActiveScenes[SceneIndex - 1].IsCurrentScene = true;
+                if (ActiveScenes != null && SceneIndex >= 0)
+                {
+                    return ActiveScenes[SceneIndex - 1];
+                }
+                else
+                {
+                    Console.WriteLine("Scene index can not be negative");
+                    return null;
+                }
             }
             catch (ArgumentOutOfRangeException)
             {
-                Console.WriteLine("Invalid scene or argument is out of range");
-            }
-            if (ActiveScenes != null)
-                return ActiveScenes[SceneIndex - 1];
-            else
+                Console.WriteLine($"Invalid scene or argument is out of range: {SceneIndex} ");
                 return null;
+            }
         }
         //This is a test command to get the current scene
         public Scene QueryScene(Scene MyScene, List<Scene> MyScenes)
@@ -515,6 +507,11 @@ namespace InteractiveFiction_CLI
             }
             return MyScene;
         }
+        public Scene GetCurrentScene()
+        {
+            Scene CurrentScene = ActiveScenes.Where(x => x.IsCurrentScene == true).FirstOrDefault();
+            return CurrentScene;
+        }
         public void CreateScene()
         {
             //Do something
@@ -522,17 +519,23 @@ namespace InteractiveFiction_CLI
         //Change the active scene on trigger to the next one in the list
         public Scene ChangeSceneNext()
         {
+            Scene MyScene = new();
             int SceneIndex = ActiveScenes.FindIndex(x => x.IsCurrentScene == true);
-            Scene NewScene = ActiveScenes[SceneIndex + 1];
-            return NewScene;
+            SceneIndex++;
+            MyScene = SetUpScene(SceneIndex + 1, ActiveScenes);
+            return MyScene;
+
         }
         //Change the active scene on trigger to the previous one in the list
         public Scene ChangeScenePrevious()
         {
-            int SceneIndex = ActiveScenes.FindIndex(x => x.IsCurrentScene == true);
-            Scene NewScene = ActiveScenes[SceneIndex - 1];
-            return NewScene;
+            Scene MyScene = new();
+            int SceneIndex = ActiveScenes.FindIndex(x => x.IsCurrentScene);
+            SceneIndex--;
+            MyScene = SetUpScene(SceneIndex + 1, ActiveScenes);
+            return MyScene;
         }
+
         public List<Scene> QuerySceneList()
         {
             return ActiveScenes;
